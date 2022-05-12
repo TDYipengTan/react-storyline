@@ -35,10 +35,5 @@
     "vite": "^2.7.13",
     "vite-tsconfig-paths": "^3.3.17"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint"
-    }
-  },
   "license": "MIT"
 }
