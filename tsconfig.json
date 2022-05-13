@@ -15,13 +15,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react",
-    "paths": {
-      "@cobalt/*": [
-        "../cobalt_modules/node_modules/@cobalt/*",
-        "../node_modules/@cobalt/*"
-      ]
-    }
+    "jsx": "react"
   },
   "include": ["./src"],
   "exclude": ["node_modules", "cobalt_modules"]
