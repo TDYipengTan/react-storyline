@@ -9,7 +9,7 @@ const userConfigFn: UserConfigFn = (env) => {
       env.mode === 'development' ? '' : 'https://tdyipengtan.github.io/react-storyline/',
     resolve: {
       alias: {
-        '@cobalt': path.resolve('./cobalt_modules/node_modules/@cobalt'),
+        '@cobalt': path.resolve(__dirname, './cobalt_modules/node_modules/@cobalt'),
       },
     },
     plugins: [reactRefresh(), tsconfigPaths()],
