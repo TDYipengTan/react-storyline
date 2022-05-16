@@ -15,6 +15,10 @@ After the successfull installation of the packages: `yarn start`
 
 `yarn build`
 
+## Test
+
+`yarn test`
+
 ## Commit Guide
 
 It is recommended to use the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification as the format of your commit message.
