@@ -4,7 +4,6 @@ dist
 dist-ssr
 *.local
 node_modules/*
-!cobalt_modules/*
 logs
 *.log
 npm-debug.log*
