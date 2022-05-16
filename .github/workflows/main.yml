@@ -35,7 +35,7 @@ jobs:
       # Build
       - name: build
         run: |
-          yarn build
+          yarn build:stg
           echo build successful
 
       # Deploy

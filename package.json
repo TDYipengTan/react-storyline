@@ -3,12 +3,15 @@
   "version": "0.0.0",
   "scripts": {
     "prepare": "husky install",
-    "start": "vite",
-    "build": "vite build",
+    "start": "vite --mode dev",
+    "build": "vite build --mode dev",
+    "build:stg": "vite build --mode stg",
+    "build:qa": "vite build --mode qa",
+    "build:prd": "vite build --mode prd",
     "serve": "vite preview",
     "lint:fix": "eslint ./src --ext .jsx,.js,.ts,.tsx --quiet --fix --ignore-path ./.gitignore",
     "lint:format": "prettier  --loglevel warn --write \"./**/*.{js,jsx,ts,tsx,css,md,json}\" ",
-    "lint": "yarn lint:format && yarn lint:fix ",
+    "lint": "yarn lint:format && yarn lint:fix",
     "type-check": "tsc",
     "test": "jest"
   },
