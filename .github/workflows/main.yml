@@ -29,17 +29,17 @@ jobs:
           fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
 
       # Install
-      - name: install
+      - name: Install
         run: yarn
 
       # Build
-      - name: build
+      - name: Build
         run: |
           yarn build:stg
           echo build successful
 
       # Deploy
-      - name: deploy
+      - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           github_token: ${{ secrets.ACCESS_TOKEN }}
