@@ -13,7 +13,21 @@ After the successfull installation of the packages: `yarn start`
 
 ## Build
 
+### dev
+
 `yarn build`
+
+### stg
+
+`yarn build:stg`
+
+### qa
+
+`yarn build:qa`
+
+### prd
+
+`yarn build:prd`
 
 ## Test
 
