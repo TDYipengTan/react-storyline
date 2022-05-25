@@ -9,7 +9,7 @@ describe('react', function () {
       render(<App />);
     });
 
-    let header = document?.querySelector('.header');
-    expect(header).not.toBeNull();
+    const app = document?.querySelector('.app');
+    expect(app).not.toBeNull();
   });
 });
