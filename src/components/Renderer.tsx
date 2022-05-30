@@ -1,8 +1,9 @@
-import { CommonProps } from 'App';
 import React, { FC, useCallback, useRef, useState } from 'react';
 import ReactFlow, {
   addEdge,
   ReactFlowInstance,
+  ReactFlowProps,
+  updateEdge,
   useEdgesState,
   useNodesState,
 } from 'react-flow-renderer';
@@ -10,11 +11,11 @@ import { getRandomId, parseJSON } from 'utils';
 
 const connectionLineStyle = { stroke: '#999' };
 
-interface RendererProps extends CommonProps {}
+interface RendererProps extends ReactFlowProps {}
 
 /**
  * 1. support custom node and line
- * 2. support sidebar (TODO)
+ * 2. support sidebar
  * 3. support property panel (MAYBE TO DO)
  */
 const Renderer: FC<RendererProps> = ({
@@ -22,6 +23,7 @@ const Renderer: FC<RendererProps> = ({
   nodeTypes = {},
   edges: edgesFromProps = [],
   edgeTypes = {},
+  ...rest
 }) => {
   const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance | null>(
     null,
@@ -32,6 +34,12 @@ const Renderer: FC<RendererProps> = ({
   // eslint-disable-next-line no-unused-vars
   const [nodes, setNodes, onNodesChange] = useNodesState(nodesFromProps);
   const [edges, setEdges, onEdgesChange] = useEdgesState(edgesFromProps);
+
+  const onEdgeUpdate = useCallback(
+    (oldEdge, newConnection) =>
+      setEdges((els) => updateEdge(oldEdge, newConnection, els)),
+    [],
+  );
 
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge({ ...params }, eds)),
@@ -77,21 +85,24 @@ const Renderer: FC<RendererProps> = ({
 
   return (
     <ReactFlow
+      fitView
       ref={reactFlowWrapper}
+      style={{ backgroundColor: '#E9E9F0' }}
       nodes={nodes}
       edges={edges}
       nodeTypes={nodeTypes}
       edgeTypes={edgeTypes}
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
+      onEdgeUpdate={onEdgeUpdate}
       onConnect={onConnect}
-      onInit={setReactFlowInstance as any}
+      onInit={setReactFlowInstance}
       onDrop={onDrop}
       onDragOver={onDragOver}
       connectionLineStyle={connectionLineStyle}
       defaultZoom={1.5}
-      fitView
       attributionPosition="bottom-right"
+      {...rest}
     />
   );
 };

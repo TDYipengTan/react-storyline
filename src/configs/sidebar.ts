@@ -1,18 +1,27 @@
+import chat from '../imgs/chat.svg';
+import file from '../imgs/file.svg';
+import img from '../imgs/img.svg';
+import user1 from '../imgs/user1.png';
+
 export const itemsConfig = [
   {
     id: 0,
-    nodeType: 'customEmailCard',
-    label: 'Custom Email Card',
+    nodeType: 'customAvatar',
+    label: 'Custom Avatar',
     data: {
-      a: 0,
+      src: user1,
+      state: 'normal',
     },
   },
   {
     id: 1,
-    nodeType: 'customTransformCard',
-    label: 'Custom Transform Card',
+    nodeType: 'customChannel',
+    label: 'Custom Channel',
     data: {
-      a: 1,
+      type: 'chat',
+      src: chat,
+      icons: [img, file],
+      count: 36,
     },
   },
 ];
