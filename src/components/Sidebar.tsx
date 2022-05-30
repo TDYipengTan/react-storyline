@@ -4,8 +4,8 @@ import { stringifyJSON } from 'utils';
 
 import styles from './Sidebar.module.less';
 
-const onDragStart = (event: React.DragEvent<HTMLLIElement>, nodeType: string) => {
-  event.dataTransfer.setData('application/reactflow', nodeType);
+const onDragStart = (event: React.DragEvent<HTMLLIElement>, allData: string) => {
+  event.dataTransfer.setData('application/reactflow', allData);
   event.dataTransfer.effectAllowed = 'move';
 };
 
