@@ -1,22 +1,10 @@
 import { Tooltip } from 'antd';
 import ContextMenu from 'components/common/ContextMenu';
-import React, { CSSProperties, FC } from 'react';
+import React, { FC } from 'react';
 import { NodeProps } from 'react-flow-renderer';
 
 import CenterHandle from '../CenterHandle';
-
-const getStateStyle = (state: AvatarProps['data']['state']): CSSProperties => ({
-  position: 'absolute',
-  right: 2,
-  bottom: 2,
-  width: 8,
-  height: 8,
-  boxSizing: 'content-box',
-  border: '2px solid #fff',
-  borderRadius: '50%',
-  backgroundColor:
-    state === 'normal' ? '#34C448' : state === 'busy' ? '#E07E41' : '#A4B8C3',
-});
+import styles from './Avatar.module.less';
 
 interface AvatarProps extends NodeProps {
   data: {
@@ -27,15 +15,9 @@ interface AvatarProps extends NodeProps {
 }
 
 const Avatar: FC<AvatarProps> = ({ isConnectable, data: { src, state, name } }) => {
-  const avatarEl = (
-    <img
-      style={{ width: '100%', height: '100%', pointerEvents: 'none' }}
-      src={src}
-      alt="avatar"
-    />
-  );
+  const avatarEl = <img className={styles.avatar} src={src} alt="avatar" />;
 
-  const stateEl = <span style={getStateStyle(state)} />;
+  const stateEl = <span className={`${styles.state} ${styles[state]}`} />;
 
   return (
     <>
@@ -49,14 +31,7 @@ const Avatar: FC<AvatarProps> = ({ isConnectable, data: { src, state, name } }) 
         ]}
       >
         <Tooltip placement="top" title={`Agent：${name}`}>
-          <div
-            style={{
-              width: 48,
-              height: 48,
-              backgroundColor: '#fff',
-              borderRadius: '50%',
-            }}
-          >
+          <div className={styles.container}>
             {avatarEl}
             {stateEl}
           </div>

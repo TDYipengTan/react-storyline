@@ -71,14 +71,12 @@ const ContextMenu: FC<PropsWithChildren<ContextMenuProps>> = ({
       {showMenu && (
         <ul
           className={styles.container}
-          aria-hidden="true"
           ref={(el) => (containerEl.current = el?.parentElement || containerEl.current)}
           onClick={(event) => event.stopPropagation()}
         >
           {dataWithAction.map(({ id, label, callback }) => (
             <li
               key={id}
-              aria-hidden="true"
               className={styles.item}
               onClick={() => {
                 callback && callback(id, label);

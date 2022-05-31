@@ -9,7 +9,7 @@ import ReactFlow, {
 } from 'react-flow-renderer';
 import { getRandomId, parseJSON } from 'utils';
 
-const connectionLineStyle = { stroke: '#999' };
+import styles from './Renderer.module.less';
 
 interface RendererProps extends ReactFlowProps {}
 
@@ -87,7 +87,7 @@ const Renderer: FC<RendererProps> = ({
     <ReactFlow
       fitView
       ref={reactFlowWrapper}
-      style={{ backgroundColor: '#E9E9F0' }}
+      className={styles.reactFlow}
       nodes={nodes}
       edges={edges}
       nodeTypes={nodeTypes}
@@ -99,7 +99,7 @@ const Renderer: FC<RendererProps> = ({
       onInit={setReactFlowInstance}
       onDrop={onDrop}
       onDragOver={onDragOver}
-      connectionLineStyle={connectionLineStyle}
+      connectionLineStyle={{ stroke: '#999' }}
       defaultZoom={1.5}
       attributionPosition="bottom-right"
       {...rest}
