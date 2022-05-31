@@ -1,3 +1,4 @@
+import { Tooltip } from 'antd';
 import ContextMenu from 'components/common/ContextMenu';
 import React, { CSSProperties, FC } from 'react';
 import { NodeProps } from 'react-flow-renderer';
@@ -21,10 +22,11 @@ interface AvatarProps extends NodeProps {
   data: {
     src: string;
     state: 'normal' | 'busy' | 'away';
+    name: string;
   };
 }
 
-const Avatar: FC<AvatarProps> = ({ isConnectable, data: { src, state } }) => {
+const Avatar: FC<AvatarProps> = ({ isConnectable, data: { src, state, name } }) => {
   const avatarEl = (
     <img
       style={{ width: '100%', height: '100%', pointerEvents: 'none' }}
@@ -46,17 +48,19 @@ const Avatar: FC<AvatarProps> = ({ isConnectable, data: { src, state } }) => {
           { id: 4, label: '拨打电话' },
         ]}
       >
-        <div
-          style={{
-            width: 48,
-            height: 48,
-            backgroundColor: '#fff',
-            borderRadius: '50%',
-          }}
-        >
-          {avatarEl}
-          {stateEl}
-        </div>
+        <Tooltip placement="top" title={`Agent：${name}`}>
+          <div
+            style={{
+              width: 48,
+              height: 48,
+              backgroundColor: '#fff',
+              borderRadius: '50%',
+            }}
+          >
+            {avatarEl}
+            {stateEl}
+          </div>
+        </Tooltip>
       </ContextMenu>
       <CenterHandle isConnectable={isConnectable} />
     </>

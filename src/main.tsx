@@ -1,7 +1,7 @@
-import 'reset-css';
 import './main.less';
 import 'antd/es/row/style/css';
 import 'antd/es/col/style/css';
+import 'antd/es/tooltip/style/css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -17,6 +17,7 @@ ReactDOM.render(
     edgeTypes={edgeTypes}
     nodesDraggable={false}
     nodesConnectable={false}
+    deleteKeyCode={null}
   />,
   document.getElementById('root'),
 );
