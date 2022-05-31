@@ -1,6 +1,6 @@
 import { Col, Row } from 'antd';
 import Renderer from 'components/Renderer';
-// import Sidebar from 'components/Sidebar';
+import Sidebar from 'components/Sidebar';
 import { DEFAULT_EDGE_TYPES, DEFAULT_NODE_TYPES } from 'configs';
 import React, { FC } from 'react';
 import { ReactFlowProps } from 'react-flow-renderer';
@@ -10,14 +10,18 @@ import styles from './App.module.less';
 
 console.log(import.meta.env);
 
+const showSidebar = sessionStorage.getItem('show-side-bar');
+
 interface AppProps extends ReactFlowProps {}
 
 const App: FC<AppProps> = ({ nodeTypes, edgeTypes, ...rest }) => {
   return (
     <Row className={`${styles.app} app`}>
-      {/* <Col flex="300px">
-        <Sidebar />
-      </Col> */}
+      {showSidebar && (
+        <Col flex="300px">
+          <Sidebar />
+        </Col>
+      )}
       <Col flex="auto">
         <Renderer
           {...rest}

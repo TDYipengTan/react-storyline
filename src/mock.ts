@@ -28,6 +28,7 @@ export const nodes = [
     data: {
       src: user1,
       state: 'normal',
+      name: 'Jona lee',
     },
     position: {
       x: 300,
@@ -79,6 +80,7 @@ export const nodes = [
     data: {
       src: user2,
       state: 'busy',
+      name: 'Tom',
     },
     position: {
       x: 301,
@@ -123,6 +125,7 @@ export const nodes = [
     data: {
       src: user3,
       state: 'away',
+      name: 'Anna',
     },
     position: {
       x: 306,
@@ -144,6 +147,7 @@ export const nodes = [
     data: {
       src: user4,
       state: 'busy',
+      name: 'July',
     },
     position: {
       x: 491,
@@ -211,6 +215,7 @@ export const nodes = [
     data: {
       src: user5,
       state: 'normal',
+      name: 'Kitty',
     },
     position: {
       x: 147,
@@ -232,6 +237,7 @@ export const nodes = [
     data: {
       src: user6,
       state: 'busy',
+      name: 'Sofy',
     },
     position: {
       x: 490,
@@ -276,6 +282,7 @@ export const nodes = [
     data: {
       src: user7,
       state: 'normal',
+      name: 'Bob',
     },
     position: {
       x: 486,

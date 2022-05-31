@@ -84,7 +84,8 @@ const Channel: FC<ChannelProps> = ({
       style={{
         position: 'absolute',
         left: '50%',
-        bottom: -36,
+        bottom: -20,
+        marginBottom: 0,
         transform: 'translate(-50%, -50%)',
         display: 'flex',
         alignItems: 'center',
