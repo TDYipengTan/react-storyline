@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { getRandomId } from 'utils';
 
 import styles from './ContextMenu.module.less';
@@ -30,10 +30,7 @@ interface ContextMenuProps {
   }[];
 }
 
-const ContextMenu: FC<PropsWithChildren<ContextMenuProps>> = ({
-  children,
-  dataWithAction,
-}) => {
+const ContextMenu: FC<ContextMenuProps> = ({ children, dataWithAction }) => {
   const [showMenu, setShowMenu] = useState(false);
   const uidRef = useRef(getRandomId());
   const containerEl = useRef<HTMLElement | null | undefined>(null);

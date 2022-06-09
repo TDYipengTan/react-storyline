@@ -7,7 +7,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './App';
-import { edges, edgeTypes, nodes, nodeTypes } from './mock';
+import { edges, edgeTypes, itemsConfig, nodes, nodeTypes } from './mock';
 
 ReactDOM.render(
   <App
@@ -15,6 +15,7 @@ ReactDOM.render(
     nodeTypes={nodeTypes}
     edges={edges}
     edgeTypes={edgeTypes}
+    itemsConfig={itemsConfig}
     nodesDraggable={false}
     nodesConnectable={false}
     deleteKeyCode={null}

@@ -11,7 +11,7 @@ import { getRandomId, parseJSON } from 'utils';
 
 import styles from './Renderer.module.less';
 
-interface RendererProps extends ReactFlowProps {}
+export interface RendererProps extends ReactFlowProps {}
 
 /**
  * 1. support custom node and line
@@ -31,7 +31,6 @@ const Renderer: FC<RendererProps> = ({
 
   const reactFlowWrapper = useRef<HTMLDivElement | null>(null);
 
-  // eslint-disable-next-line no-unused-vars
   const [nodes, setNodes, onNodesChange] = useNodesState(nodesFromProps);
   const [edges, setEdges, onEdgesChange] = useEdgesState(edgesFromProps);
 

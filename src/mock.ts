@@ -384,3 +384,26 @@ export const edges = [
 ];
 
 export const edgeTypes = {};
+
+export const itemsConfig = [
+  {
+    id: 0,
+    nodeType: 'customAvatar',
+    label: 'Custom Avatar',
+    data: {
+      src: user1,
+      state: 'normal',
+    },
+  },
+  {
+    id: 1,
+    nodeType: 'customChannel',
+    label: 'Custom Channel',
+    data: {
+      type: 'chat',
+      src: chat,
+      icons: [img, file],
+      count: 36,
+    },
+  },
+];

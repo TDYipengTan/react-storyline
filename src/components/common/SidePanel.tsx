@@ -1,4 +1,4 @@
-import React, { CSSProperties, FC, PropsWithChildren } from 'react';
+import React, { CSSProperties, FC } from 'react';
 import { createPortal } from 'react-dom';
 
 import styles from './SidePanel.module.less';
@@ -12,7 +12,7 @@ interface SidePanelProps {
   onClose(): void;
 }
 
-const SidePanel: FC<PropsWithChildren<SidePanelProps>> = ({
+const SidePanel: FC<SidePanelProps> = ({
   visible,
   titleIcon,
   title,
