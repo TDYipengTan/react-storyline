@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Heading /> renders 1`] = `
+<div>
+  <h1
+    class="co-heading co-heading--1"
+    data-co-name="Heading"
+    data-co-project="cobalt"
+    data-co-version="test-version"
+  >
+    H1
+  </h1>
+  <h2
+    class="co-heading co-heading--2"
+    data-co-name="Heading"
+    data-co-project="cobalt"
+    data-co-version="test-version"
+  >
+    H2
+  </h2>
+  <h3
+    class="co-heading co-heading--3"
+    data-co-name="Heading"
+    data-co-project="cobalt"
+    data-co-version="test-version"
+  >
+    H3
+  </h3>
+  <h4
+    class="co-heading co-heading--4"
+    data-co-name="Heading"
+    data-co-project="cobalt"
+    data-co-version="test-version"
+  >
+    H4
+  </h4>
+  <h5
+    class="co-heading co-heading--5"
+    data-co-name="Heading"
+    data-co-project="cobalt"
+    data-co-version="test-version"
+  >
+    H5
+  </h5>
+  <h6
+    class="co-heading co-heading--6"
+    data-co-name="Heading"
+    data-co-project="cobalt"
+    data-co-version="test-version"
+  >
+    H6
+  </h6>
+</div>
+`;

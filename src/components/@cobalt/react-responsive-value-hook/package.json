@@ -1,0 +1,30 @@
+{
+  "name": "@cobalt/react-responsive-value-hook",
+  "version": "1.0.6",
+  "description": "A hook that returns a value based on the viewport size.",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "author": "Talkdesk",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup --config ../rollup.config.js",
+    "build:docs": "build-storybook --docs",
+    "lint": "yarn lint:eslint && yarn lint:tsc",
+    "lint:eslint": "eslint --ext .js,.ts,.tsx src/",
+    "lint:tsc": "tsc --noEmit",
+    "start": "yarn build --watch",
+    "test": "jest",
+    "storybook": "start-storybook"
+  },
+  "peerDependencies": {
+    "react": "^16.9.0"
+  },
+  "dependencies": {
+    "@cobalt/react-viewport-provider": "^1.0.6"
+  },
+  "devDependencies": {
+    "@cobalt/storybook-addon-docs": "^1.1.1",
+    "react": "^16.9.0"
+  }
+}

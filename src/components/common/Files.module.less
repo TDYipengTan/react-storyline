@@ -1,0 +1,24 @@
+.filesContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+
+.fileItem {
+  width: 90px;
+  height: 70px;
+  border-radius: 8px;
+
+  &:not(:nth-child(1)) {
+    margin-left: 15px;
+  }
+
+  :global {
+    img {
+      width: 100%;
+      height: 100%;
+      transform: scale(1.3);
+    }
+  }
+}

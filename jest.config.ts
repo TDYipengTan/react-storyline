@@ -1,6 +1,6 @@
 export default {
-  clearMocks: true,
   preset: 'ts-jest',
+  clearMocks: true,
   testEnvironment: 'jsdom',
   transform: {
     '^.+\\.(css|less)$': './styleMock.js',

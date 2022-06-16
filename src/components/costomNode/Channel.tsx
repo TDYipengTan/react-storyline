@@ -1,14 +1,19 @@
+import classNames from 'classnames';
+import ChatSidePanel from 'components/common/ChatSidePanel';
 import ContextMenu from 'components/common/ContextMenu';
 import EmailSidePanel from 'components/common/EmailSidePanel';
-import React, { FC, useState } from 'react';
-import { NodeProps } from 'react-flow-renderer';
+import SMSSidePanel from 'components/common/SMSSidePanel';
+import VoiceSidePanel from 'components/common/VoiceSidePanel';
+import { MIN_ZOOM } from 'configs';
+import React, { FC, useEffect, useState } from 'react';
+import { NodeProps, useViewport } from 'react-flow-renderer';
 
 import CenterHandle from '../CenterHandle';
 import styles from './Channel.module.less';
 
 interface ChannelProps extends NodeProps {
   data: {
-    type: 'email' | 'chat' | 'sms' | 'call';
+    type: 'email' | 'chat' | 'sms' | 'voice';
     src: string;
     icons?: string[];
     count?: number;
@@ -21,15 +26,37 @@ const Channel: FC<ChannelProps> = ({
   selected,
 }) => {
   const [showEmailSidePanel, setShowEmailSidePanel] = useState(false);
+  const [showChatSidePanel, setShowChatSidePanel] = useState(false);
+  const [showSMSSidePanel, setShowSMSSidePanel] = useState(false);
+  const [showVoiceSidePanel, setShowVoiceSidePanel] = useState(false);
+  const [showIcons, setShowIcons] = useState(false);
+  const { zoom } = useViewport();
 
-  const showEmailSidePanelFn = () => {
-    if (type === 'email') {
-      setShowEmailSidePanel(true);
+  const toggleChannelSidePanelVisible = (flag: boolean) => {
+    switch (type) {
+      case 'email':
+        setShowEmailSidePanel(flag);
+        break;
+      case 'chat':
+        setShowChatSidePanel(flag);
+        break;
+      case 'sms':
+        setShowSMSSidePanel(flag);
+        break;
+      case 'voice':
+        setShowVoiceSidePanel(flag);
+        break;
+      default:
+        break;
     }
   };
 
-  const closeEmailSidePanelFn = () => {
-    setShowEmailSidePanel(false);
+  const showChannelSidePanelFn = () => {
+    toggleChannelSidePanelVisible(true);
+  };
+
+  const closeChannelSidePanelFn = () => {
+    toggleChannelSidePanelVisible(false);
   };
 
   const newIcons = icons.map((icon) => {
@@ -38,9 +65,9 @@ const Channel: FC<ChannelProps> = ({
 
   const typeEl = <img className={styles.type} src={src} alt={`icon: ${type}`} />;
 
-  const countEl = count && <span className={styles.count}>{count}</span>;
+  const countEl = Boolean(count) && <span className={styles.count}>{count}</span>;
 
-  const listEl = (
+  const listEl = showIcons && newIcons?.length && (
     <ul className={styles.listContainer}>
       {newIcons.map(({ icon, style }) => (
         <li style={style} key={icon}>
@@ -50,27 +77,36 @@ const Channel: FC<ChannelProps> = ({
     </ul>
   );
 
+  useEffect(() => {
+    setShowIcons(zoom > MIN_ZOOM);
+  }, [zoom]);
+
   return (
     <>
       <ContextMenu
         dataWithAction={[
-          { id: 0, label: '查看详情', callback: showEmailSidePanelFn },
-          { id: 1, label: '下载附件' },
-          { id: 2, label: '全部归档' },
+          { id: 0, label: 'More', callback: showChannelSidePanelFn },
+          { id: 1, label: 'Download' },
+          { id: 2, label: 'Archive' },
         ]}
       >
         <div
-          className={[styles.container, styles[type], selected && styles.selected]
-            .filter(Boolean)
-            .join(' ')}
-          onClick={() => showEmailSidePanelFn()}
+          className={classNames(
+            styles.container,
+            styles[type],
+            selected && styles.selected,
+          )}
+          onClick={() => showChannelSidePanelFn()}
         >
           {typeEl}
           {countEl}
           {listEl}
         </div>
       </ContextMenu>
-      <EmailSidePanel visible={showEmailSidePanel} onClose={closeEmailSidePanelFn} />
+      <EmailSidePanel visible={showEmailSidePanel} onClose={closeChannelSidePanelFn} />
+      <ChatSidePanel visible={showChatSidePanel} onClose={closeChannelSidePanelFn} />
+      <SMSSidePanel visible={showSMSSidePanel} onClose={closeChannelSidePanelFn} />
+      <VoiceSidePanel visible={showVoiceSidePanel} onClose={closeChannelSidePanelFn} />
       <CenterHandle isConnectable={isConnectable} />
     </>
   );

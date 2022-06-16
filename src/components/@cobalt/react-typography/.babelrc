@@ -1,0 +1,15 @@
+{
+  "presets": [
+    ["@babel/env", { "targets": { "node": "current" } }],
+    "@babel/react",
+    "@babel/typescript"
+  ],
+  "plugins": [
+    ["@cobalt/babel-plugin-data-attributes", {
+      "overrides": {
+        "Skeleton": { "process": false },
+        "SkeletonLine": { "process": false }
+      }
+    }]
+  ]
+}

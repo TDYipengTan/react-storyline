@@ -26,7 +26,7 @@ const SidePanel: FC<SidePanelProps> = ({
   return createPortal(
     <div className={styles.container}>
       <div className={styles.mask} onClick={onClose} />
-      <div className={styles.mainContainer} onClick={(event) => event.stopPropagation()}>
+      <div className={styles.mainContainer}>
         <div className={styles.header} style={headerStyle}>
           <div className={styles.titleContainer}>
             <img className={styles.titleIcon} src={titleIcon} alt="title icon" />
