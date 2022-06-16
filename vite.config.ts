@@ -10,6 +10,11 @@ const userConfigFn: UserConfigFn = (env) => {
         './src/components/@cobalt': '@cobalt',
       },
     },
+    build: {
+      rollupOptions: {
+        external: '@cobalt',
+      },
+    },
     plugins: [reactRefresh(), tsconfigPaths()],
   };
 };
