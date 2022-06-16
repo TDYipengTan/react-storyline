@@ -1,29 +1,23 @@
+import classNames from 'classnames';
+import ChatSidePanel from 'components/common/ChatSidePanel';
 import ContextMenu from 'components/common/ContextMenu';
 import EmailSidePanel from 'components/common/EmailSidePanel';
-import React, { CSSProperties, FC, useState } from 'react';
-import { NodeProps } from 'react-flow-renderer';
+import SMSSidePanel from 'components/common/SMSSidePanel';
+import VoiceSidePanel from 'components/common/VoiceSidePanel';
+import { MIN_ZOOM } from 'configs';
+import React, { FC, useEffect, useState } from 'react';
+import { NodeProps, useViewport } from 'react-flow-renderer';
 
 import CenterHandle from '../CenterHandle';
+import FilePopover from '../common/FilePopover';
+import LinksPopover from '../common/LinksPopover';
 import styles from './Channel.module.less';
-
-const getTypeStyle = (type: ChannelProps['data']['type']): CSSProperties => ({
-  width: 70,
-  height: 70,
-  backgroundColor:
-    type === 'email'
-      ? '#5481DD'
-      : type === 'chat'
-      ? '#648E43'
-      : type === 'sms'
-      ? '#D48D2B'
-      : '#7D76E9',
-  borderRadius: '50%',
-});
 
 interface ChannelProps extends NodeProps {
   data: {
-    type: 'email' | 'chat' | 'sms' | 'call';
+    type: 'email' | 'chat' | 'sms' | 'voice';
     src: string;
+    data: any[];
     icons?: string[];
     count?: number;
   };
@@ -31,97 +25,123 @@ interface ChannelProps extends NodeProps {
 
 const Channel: FC<ChannelProps> = ({
   isConnectable,
-  data: { type, src, icons = [], count = 0 },
+  data: { type, src, data, icons = [], count = 0 },
   selected,
 }) => {
   const [showEmailSidePanel, setShowEmailSidePanel] = useState(false);
+  const [showChatSidePanel, setShowChatSidePanel] = useState(false);
+  const [showSMSSidePanel, setShowSMSSidePanel] = useState(false);
+  const [showVoiceSidePanel, setShowVoiceSidePanel] = useState(false);
+  const [showIcons, setShowIcons] = useState(false);
+  const { zoom } = useViewport();
 
-  const showEmailSidePanelFn = () => {
-    if (type === 'email') {
-      setShowEmailSidePanel(true);
+  const toggleChannelSidePanelVisible = (flag: boolean) => {
+    switch (type) {
+      case 'email':
+        setShowEmailSidePanel(flag);
+        break;
+      case 'chat':
+        setShowChatSidePanel(flag);
+        break;
+      case 'sms':
+        setShowSMSSidePanel(flag);
+        break;
+      case 'voice':
+        setShowVoiceSidePanel(flag);
+        break;
+      default:
+        break;
     }
   };
 
-  const closeEmailSidePanelFn = () => {
-    setShowEmailSidePanel(false);
+  const showChannelSidePanelFn = () => {
+    toggleChannelSidePanelVisible(true);
+  };
+
+  const closeChannelSidePanelFn = () => {
+    toggleChannelSidePanelVisible(false);
   };
 
   const newIcons = icons.map((icon) => {
-    return typeof icon === 'string' ? { icon, style: {} } : icon;
+    return typeof icon === 'string'
+      ? { icon, component: '', currentSelect: -1, listSrc: [], style: {} }
+      : icon;
   });
 
-  const typeEl = (
-    <img
-      src={src}
-      style={{ width: '100%', height: '100%', pointerEvents: 'none' }}
-      alt={`icon: ${type}`}
-    />
-  );
+  const typeEl = <img className={styles.type} src={src} alt={`icon: ${type}`} />;
 
-  const countEl = count && (
-    <span
-      style={{
-        position: 'absolute',
-        right: -3,
-        top: -3,
-        width: 24,
-        height: 24,
-        lineHeight: '24px',
-        textAlign: 'center',
-        fontSize: '10px',
-        fontWeight: 600,
-        color: '#fff',
-        borderRadius: '50%',
-        backgroundColor: '#cc5a00',
-      }}
-    >
-      {count}
-    </span>
-  );
+  const countEl = Boolean(count) && <span className={styles.count}>{count}</span>;
 
-  const listEl = (
-    <ul
-      style={{
-        position: 'absolute',
-        left: '50%',
-        bottom: -20,
-        marginBottom: 0,
-        transform: 'translate(-50%, -50%)',
-        display: 'flex',
-        alignItems: 'center',
-      }}
-    >
-      {newIcons.map(({ icon, style }) => (
-        <li style={{ width: 24, height: 24, ...style }} key={icon}>
-          <img style={{ width: '100%', height: '100%' }} src={icon} alt="icon" />
+  const listEl = showIcons && newIcons?.length && (
+    <ul className={styles.listContainer}>
+      {newIcons.map(({ icon, component, style, ...rest }) => (
+        <li className={styles.listItem} style={style} key={icon}>
+          {component ? (
+            component === 'FilePopover' ? (
+              <FilePopover iconSrc={icon} {...rest} />
+            ) : (
+              <LinksPopover iconSrc={icon} {...rest} />
+            )
+          ) : (
+            <img src={icon} alt="icon" />
+          )}
         </li>
       ))}
     </ul>
   );
 
+  const panels = data && (
+    <>
+      <EmailSidePanel
+        data={data}
+        visible={showEmailSidePanel}
+        onClose={closeChannelSidePanelFn}
+      />
+      <ChatSidePanel
+        data={data}
+        visible={showChatSidePanel}
+        onClose={closeChannelSidePanelFn}
+      />
+      <SMSSidePanel
+        data={data}
+        visible={showSMSSidePanel}
+        onClose={closeChannelSidePanelFn}
+      />
+      <VoiceSidePanel
+        data={data}
+        visible={showVoiceSidePanel}
+        onClose={closeChannelSidePanelFn}
+      />
+    </>
+  );
+
+  useEffect(() => {
+    setShowIcons(zoom > MIN_ZOOM);
+  }, [zoom]);
+
   return (
     <>
       <ContextMenu
         dataWithAction={[
-          { id: 0, label: '查看详情', callback: showEmailSidePanelFn },
-          { id: 1, label: '下载附件' },
-          { id: 2, label: '全部归档' },
+          { id: 0, label: 'More', callback: showChannelSidePanelFn },
+          { id: 1, label: 'Download' },
+          { id: 2, label: 'Archive' },
         ]}
       >
         <div
-          aria-hidden="true"
-          className={[styles.container, styles[type], selected && styles.selected]
-            .filter(Boolean)
-            .join(' ')}
-          style={getTypeStyle(type)}
-          onClick={() => showEmailSidePanelFn()}
+          className={classNames(
+            styles.container,
+            styles[type],
+            selected && styles.selected,
+          )}
+          onClick={() => showChannelSidePanelFn()}
         >
           {typeEl}
           {countEl}
           {listEl}
         </div>
       </ContextMenu>
-      <EmailSidePanel visible={showEmailSidePanel} onClose={closeEmailSidePanelFn} />
+      {panels}
       <CenterHandle isConnectable={isConnectable} />
     </>
   );

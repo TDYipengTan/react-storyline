@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Text /> renders a paragraph 1`] = `
+<div>
+  <p
+    class="co-text co-text--medium co-text--weight-regular"
+    data-co-name="Text"
+    data-co-project="cobalt"
+    data-co-version="test-version"
+  >
+    Text
+  </p>
+</div>
+`;
+
+exports[`<Text /> renders a span 1`] = `
+<div>
+  <span
+    class="co-text co-text--medium co-text--weight-regular"
+    data-co-name="Text"
+    data-co-project="cobalt"
+    data-co-version="test-version"
+  >
+    Text
+  </span>
+</div>
+`;

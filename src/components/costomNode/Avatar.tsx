@@ -1,62 +1,46 @@
 import { Tooltip } from 'antd';
 import ContextMenu from 'components/common/ContextMenu';
-import React, { CSSProperties, FC } from 'react';
+import useShowMeByCc from 'hooks/useShowMeByCc';
+import React, { FC } from 'react';
 import { NodeProps } from 'react-flow-renderer';
 
 import CenterHandle from '../CenterHandle';
-
-const getStateStyle = (state: AvatarProps['data']['state']): CSSProperties => ({
-  position: 'absolute',
-  right: 2,
-  bottom: 2,
-  width: 8,
-  height: 8,
-  boxSizing: 'content-box',
-  border: '2px solid #fff',
-  borderRadius: '50%',
-  backgroundColor:
-    state === 'normal' ? '#34C448' : state === 'busy' ? '#E07E41' : '#A4B8C3',
-});
+import styles from './Avatar.module.less';
 
 interface AvatarProps extends NodeProps {
   data: {
+    cc?: boolean;
     src: string;
     state: 'normal' | 'busy' | 'away';
     name: string;
   };
 }
 
-const Avatar: FC<AvatarProps> = ({ isConnectable, data: { src, state, name } }) => {
-  const avatarEl = (
-    <img
-      style={{ width: '100%', height: '100%', pointerEvents: 'none' }}
-      src={src}
-      alt="avatar"
-    />
-  );
+const Avatar: FC<AvatarProps> = ({
+  isConnectable,
+  data: { cc = false, src, state, name },
+}) => {
+  const showMe = useShowMeByCc(cc);
 
-  const stateEl = <span style={getStateStyle(state)} />;
+  const avatarEl = <img className={styles.avatar} src={src} alt="avatar" />;
+
+  const stateEl = <span className={`${styles.state} ${styles[state]}`} />;
+
+  if (!showMe) return null;
 
   return (
     <>
       <ContextMenu
         dataWithAction={[
-          { id: 0, label: '个人资料' },
-          { id: 1, label: '添加联系人' },
-          { id: 2, label: '收藏联系人' },
-          { id: 3, label: '发送Email' },
-          { id: 4, label: '拨打电话' },
+          { id: 0, label: 'View profile' },
+          { id: 1, label: 'Add Jona lee' },
+          { id: 2, label: 'Chat' },
+          { id: 3, label: 'Email' },
+          { id: 4, label: 'Voice' },
         ]}
       >
         <Tooltip placement="top" title={`Agent：${name}`}>
-          <div
-            style={{
-              width: 48,
-              height: 48,
-              backgroundColor: '#fff',
-              borderRadius: '50%',
-            }}
-          >
+          <div className={styles.container}>
             {avatarEl}
             {stateEl}
           </div>

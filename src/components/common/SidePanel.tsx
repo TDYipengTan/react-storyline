@@ -1,4 +1,4 @@
-import React, { CSSProperties, FC, PropsWithChildren } from 'react';
+import React, { CSSProperties, FC } from 'react';
 import { createPortal } from 'react-dom';
 
 import styles from './SidePanel.module.less';
@@ -12,7 +12,7 @@ interface SidePanelProps {
   onClose(): void;
 }
 
-const SidePanel: FC<PropsWithChildren<SidePanelProps>> = ({
+const SidePanel: FC<SidePanelProps> = ({
   visible,
   titleIcon,
   title,
@@ -25,18 +25,14 @@ const SidePanel: FC<PropsWithChildren<SidePanelProps>> = ({
 
   return createPortal(
     <div className={styles.container}>
-      <div aria-hidden="true" className={styles.mask} onClick={onClose} />
-      <div
-        aria-hidden="true"
-        className={styles.mainContainer}
-        onClick={(event) => event.stopPropagation()}
-      >
+      <div className={styles.mask} onClick={onClose} />
+      <div className={styles.mainContainer}>
         <div className={styles.header} style={headerStyle}>
           <div className={styles.titleContainer}>
             <img className={styles.titleIcon} src={titleIcon} alt="title icon" />
             {title}
           </div>
-          <div aria-hidden="true" className={styles.close} onClick={onClose} />
+          <div className={styles.close} onClick={onClose} />
         </div>
         <div className={styles.body} style={bodyStyle}>
           {children}

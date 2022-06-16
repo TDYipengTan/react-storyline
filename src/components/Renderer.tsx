@@ -9,9 +9,9 @@ import ReactFlow, {
 } from 'react-flow-renderer';
 import { getRandomId, parseJSON } from 'utils';
 
-const connectionLineStyle = { stroke: '#999' };
+import styles from './Renderer.module.less';
 
-interface RendererProps extends ReactFlowProps {}
+export interface RendererProps extends ReactFlowProps {}
 
 /**
  * 1. support custom node and line
@@ -31,7 +31,6 @@ const Renderer: FC<RendererProps> = ({
 
   const reactFlowWrapper = useRef<HTMLDivElement | null>(null);
 
-  // eslint-disable-next-line no-unused-vars
   const [nodes, setNodes, onNodesChange] = useNodesState(nodesFromProps);
   const [edges, setEdges, onEdgesChange] = useEdgesState(edgesFromProps);
 
@@ -87,7 +86,7 @@ const Renderer: FC<RendererProps> = ({
     <ReactFlow
       fitView
       ref={reactFlowWrapper}
-      style={{ backgroundColor: '#E9E9F0' }}
+      className={styles.reactFlow}
       nodes={nodes}
       edges={edges}
       nodeTypes={nodeTypes}
@@ -99,7 +98,7 @@ const Renderer: FC<RendererProps> = ({
       onInit={setReactFlowInstance}
       onDrop={onDrop}
       onDragOver={onDragOver}
-      connectionLineStyle={connectionLineStyle}
+      connectionLineStyle={{ stroke: '#999' }}
       defaultZoom={1.5}
       attributionPosition="bottom-right"
       {...rest}

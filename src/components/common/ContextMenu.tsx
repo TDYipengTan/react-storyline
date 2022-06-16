@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { getRandomId } from 'utils';
 
 import styles from './ContextMenu.module.less';
@@ -30,10 +30,7 @@ interface ContextMenuProps {
   }[];
 }
 
-const ContextMenu: FC<PropsWithChildren<ContextMenuProps>> = ({
-  children,
-  dataWithAction,
-}) => {
+const ContextMenu: FC<ContextMenuProps> = ({ children, dataWithAction }) => {
   const [showMenu, setShowMenu] = useState(false);
   const uidRef = useRef(getRandomId());
   const containerEl = useRef<HTMLElement | null | undefined>(null);
@@ -71,14 +68,12 @@ const ContextMenu: FC<PropsWithChildren<ContextMenuProps>> = ({
       {showMenu && (
         <ul
           className={styles.container}
-          aria-hidden="true"
           ref={(el) => (containerEl.current = el?.parentElement || containerEl.current)}
           onClick={(event) => event.stopPropagation()}
         >
           {dataWithAction.map(({ id, label, callback }) => (
             <li
               key={id}
-              aria-hidden="true"
               className={styles.item}
               onClick={() => {
                 callback && callback(id, label);
