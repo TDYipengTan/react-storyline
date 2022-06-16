@@ -1,4 +1,5 @@
 import reactRefresh from '@vitejs/plugin-react-refresh';
+import { resolve } from 'path';
 import { defineConfig, UserConfigFn } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
@@ -7,12 +8,7 @@ const userConfigFn: UserConfigFn = (env) => {
     base: env.mode === 'dev' ? '' : 'https://tdyipengtan.github.io/react-storyline/',
     resolve: {
       alias: {
-        './src/components/@cobalt': '@cobalt',
-      },
-    },
-    build: {
-      rollupOptions: {
-        external: '@cobalt',
+        '@cobalt': resolve(__dirname, './src/components/@cobalt'),
       },
     },
     plugins: [reactRefresh(), tsconfigPaths()],
