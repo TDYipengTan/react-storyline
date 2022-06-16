@@ -9,12 +9,15 @@ import React, { FC, useEffect, useState } from 'react';
 import { NodeProps, useViewport } from 'react-flow-renderer';
 
 import CenterHandle from '../CenterHandle';
+import FilePopover from '../common/FilePopover';
+import LinksPopover from '../common/LinksPopover';
 import styles from './Channel.module.less';
 
 interface ChannelProps extends NodeProps {
   data: {
     type: 'email' | 'chat' | 'sms' | 'voice';
     src: string;
+    data: any[];
     icons?: string[];
     count?: number;
   };
@@ -22,7 +25,7 @@ interface ChannelProps extends NodeProps {
 
 const Channel: FC<ChannelProps> = ({
   isConnectable,
-  data: { type, src, icons = [], count = 0 },
+  data: { type, src, data, icons = [], count = 0 },
   selected,
 }) => {
   const [showEmailSidePanel, setShowEmailSidePanel] = useState(false);
@@ -60,7 +63,9 @@ const Channel: FC<ChannelProps> = ({
   };
 
   const newIcons = icons.map((icon) => {
-    return typeof icon === 'string' ? { icon, style: {} } : icon;
+    return typeof icon === 'string'
+      ? { icon, component: '', currentSelect: -1, listSrc: [], style: {} }
+      : icon;
   });
 
   const typeEl = <img className={styles.type} src={src} alt={`icon: ${type}`} />;
@@ -69,12 +74,45 @@ const Channel: FC<ChannelProps> = ({
 
   const listEl = showIcons && newIcons?.length && (
     <ul className={styles.listContainer}>
-      {newIcons.map(({ icon, style }) => (
-        <li style={style} key={icon}>
-          <img src={icon} alt="icon" />
+      {newIcons.map(({ icon, component, style, ...rest }) => (
+        <li className={styles.listItem} style={style} key={icon}>
+          {component ? (
+            component === 'FilePopover' ? (
+              <FilePopover iconSrc={icon} {...rest} />
+            ) : (
+              <LinksPopover iconSrc={icon} {...rest} />
+            )
+          ) : (
+            <img src={icon} alt="icon" />
+          )}
         </li>
       ))}
     </ul>
+  );
+
+  const panels = data && (
+    <>
+      <EmailSidePanel
+        data={data}
+        visible={showEmailSidePanel}
+        onClose={closeChannelSidePanelFn}
+      />
+      <ChatSidePanel
+        data={data}
+        visible={showChatSidePanel}
+        onClose={closeChannelSidePanelFn}
+      />
+      <SMSSidePanel
+        data={data}
+        visible={showSMSSidePanel}
+        onClose={closeChannelSidePanelFn}
+      />
+      <VoiceSidePanel
+        data={data}
+        visible={showVoiceSidePanel}
+        onClose={closeChannelSidePanelFn}
+      />
+    </>
   );
 
   useEffect(() => {
@@ -103,10 +141,7 @@ const Channel: FC<ChannelProps> = ({
           {listEl}
         </div>
       </ContextMenu>
-      <EmailSidePanel visible={showEmailSidePanel} onClose={closeChannelSidePanelFn} />
-      <ChatSidePanel visible={showChatSidePanel} onClose={closeChannelSidePanelFn} />
-      <SMSSidePanel visible={showSMSSidePanel} onClose={closeChannelSidePanelFn} />
-      <VoiceSidePanel visible={showVoiceSidePanel} onClose={closeChannelSidePanelFn} />
+      {panels}
       <CenterHandle isConnectable={isConnectable} />
     </>
   );

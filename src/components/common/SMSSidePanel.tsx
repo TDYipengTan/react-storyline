@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react';
+import { WithId } from 'types';
 
-import exampleEmail from '../../imgs/example-email.svg';
-import { SMSChannelMockData } from '../../mock';
+import exampleSMS from '../../imgs/example-sms.png';
 import Avatar from './Avatar';
 import ChannelItemTime from './ChannelItemTime';
 import Files from './Files';
@@ -29,15 +29,16 @@ const SMSItem: FC<SMSItemProps> = ({ src, content, time, filesSrc = [] }) => {
 };
 
 interface SMSSidePanelProps {
+  data: WithId<SMSItemProps>[];
   visible: boolean;
   onClose: () => void;
 }
 
-const SMSSidePanel: FC<SMSSidePanelProps> = ({ visible, onClose }) => {
+const SMSSidePanel: FC<SMSSidePanelProps> = ({ data, visible, onClose }) => {
   return (
     <SidePanel
       visible={visible}
-      titleIcon={exampleEmail}
+      titleIcon={exampleSMS}
       title="SMS"
       headerStyle={{
         color: '#d48d2b',
@@ -48,7 +49,7 @@ const SMSSidePanel: FC<SMSSidePanelProps> = ({ visible, onClose }) => {
       onClose={onClose}
     >
       <ChannelItemTime style={{ marginBottom: 25 }} value={'2022-03-15'} />
-      {SMSChannelMockData.map(({ id, ...rest }) => (
+      {data.map(({ id, ...rest }) => (
         <SMSItem key={id} {...rest} />
       ))}
     </SidePanel>

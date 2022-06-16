@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import { EmailChannelMockData } from 'mock';
 import React, { FC, ReactNode } from 'react';
+import { WithId } from 'types';
 
 import exampleEmail from '../../imgs/example-email.svg';
 import Avatar from './Avatar';
@@ -50,11 +50,12 @@ const EmailItem: FC<EmailItemProps> = ({
 };
 
 interface EmailSidePanelProps {
+  data: WithId<EmailItemProps>[];
   visible: boolean;
   onClose: () => void;
 }
 
-const EmailSidePanel: FC<EmailSidePanelProps> = ({ visible, onClose }) => {
+const EmailSidePanel: FC<EmailSidePanelProps> = ({ data, visible, onClose }) => {
   return (
     <SidePanel
       visible={visible}
@@ -68,7 +69,7 @@ const EmailSidePanel: FC<EmailSidePanelProps> = ({ visible, onClose }) => {
       }}
       onClose={onClose}
     >
-      {EmailChannelMockData.map(({ id, ...rest }) => (
+      {data.map(({ id, ...rest }) => (
         <EmailItem key={id} {...rest} />
       ))}
     </SidePanel>

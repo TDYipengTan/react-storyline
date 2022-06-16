@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
+import { WithId } from 'types';
 
-import exampleEmail from '../../imgs/example-email.svg';
-import { ChatChannelMockData } from '../../mock';
+import exampleChat from '../../imgs/example-chat.png';
 import Avatar from './Avatar';
 import ChannelItemTime from './ChannelItemTime';
 import styles from './ChatSidePanel.module.less';
@@ -27,15 +27,16 @@ const ChatItem: FC<ChatItemProps> = ({ isImg = false, src, content }) => {
 };
 
 interface ChatSidePanelProps {
+  data: WithId<ChatItemProps>[];
   visible: boolean;
   onClose: () => void;
 }
 
-const ChatSidePanel: FC<ChatSidePanelProps> = ({ visible, onClose }) => {
+const ChatSidePanel: FC<ChatSidePanelProps> = ({ data, visible, onClose }) => {
   return (
     <SidePanel
       visible={visible}
-      titleIcon={exampleEmail}
+      titleIcon={exampleChat}
       title="Chat"
       headerStyle={{
         color: '#648E43',
@@ -46,7 +47,7 @@ const ChatSidePanel: FC<ChatSidePanelProps> = ({ visible, onClose }) => {
       onClose={onClose}
     >
       <ChannelItemTime style={{ marginBottom: 24 }} value={'2022-03-14  10:45 AM'} />
-      {ChatChannelMockData.map(({ id, ...rest }) => (
+      {data.map(({ id, ...rest }) => (
         <ChatItem key={id} {...rest} />
       ))}
     </SidePanel>

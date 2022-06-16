@@ -1,8 +1,7 @@
 import React, { FC, ReactNode } from 'react';
+import { WithId } from 'types';
 
-import loveYouAudioSrc from '../../audios/love-you.mp3';
-import exampleEmail from '../../imgs/example-email.svg';
-import { VoiceChannelMockData } from '../../mock';
+import exampleVoice from '../../imgs/example-voice.png';
 import Avatar from './Avatar';
 import SidePanel from './SidePanel';
 import Voice from './Voice';
@@ -25,15 +24,16 @@ const VoiceItem: FC<VoiceItemProps> = ({ src, content }) => {
 };
 
 interface VoiceSidePanelProps {
+  data: WithId<VoiceItemProps>[];
   visible: boolean;
   onClose: () => void;
 }
 
-const VoiceSidePanel: FC<VoiceSidePanelProps> = ({ visible, onClose }) => {
+const VoiceSidePanel: FC<VoiceSidePanelProps> = ({ data, visible, onClose }) => {
   return (
     <SidePanel
       visible={visible}
-      titleIcon={exampleEmail}
+      titleIcon={exampleVoice}
       title="Voice"
       headerStyle={{
         color: '#7d76e9',
@@ -45,10 +45,10 @@ const VoiceSidePanel: FC<VoiceSidePanelProps> = ({ visible, onClose }) => {
     >
       <div className={styles.voiceTime}>2022-03-15 12:34-12:38 PM</div>
       <div className={styles.voiceContainer}>
-        <Voice src={loveYouAudioSrc} />
+        <Voice src="/audios/love-you.mp3" />
       </div>
       <div className={styles.voiceToText}>Voice to text</div>
-      {VoiceChannelMockData.map(({ id, ...rest }) => (
+      {data.map(({ id, ...rest }) => (
         <VoiceItem key={id} {...rest} />
       ))}
     </SidePanel>

@@ -1,0 +1,75 @@
+.me {
+  width: 100%;
+  height: 100%;
+}
+
+.preview {
+  position: relative;
+  height: 320px;
+  margin-bottom: 12px;
+}
+
+.previewImg {
+  height: 100%;
+}
+
+.name {
+  position: absolute;
+  left: 13px;
+  bottom: 8px;
+  font-size: 16px;
+  line-height: 20px;
+  color: #fff;
+}
+
+.download {
+  position: absolute;
+  right: 17px;
+  bottom: 18px;
+  width: 22px;
+  height: 22px;
+}
+
+.downloadIcon {
+  width: 100%;
+  height: 100%;
+}
+
+.list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.item {
+  width: 94px;
+  height: 60px;
+  cursor: pointer;
+
+  &:not(:last-child) {
+    margin-right: 8px;
+  }
+
+  :global {
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.selected {
+  position: relative;
+
+  &::before {
+    content: ' ';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border: 4px solid #000;
+    box-sizing: content-box;
+  }
+}
