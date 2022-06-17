@@ -4,6 +4,7 @@ import { SMSItemProps } from 'components/common/SMSSidePanel';
 import { VoiceItemProps } from 'components/common/VoiceSidePanel';
 import CustomCcStraight from 'components/customEdge/CcStraight';
 import Straight from 'components/customEdge/Straight';
+import { ENV } from 'configs';
 import React from 'react';
 import { getRandomId } from 'utils';
 
@@ -342,9 +343,9 @@ export const nodes = [
           currentSelect: 1,
           listSrc: [word, pdf, excel],
           downloadsSrc: [
-            '/docs/template.pptx',
-            '/docs/template.pptx',
-            '/docs/template.pptx',
+            `${ENV.BASE_URL}docs/template.pptx`,
+            `${ENV.BASE_URL}docs/template.pptx`,
+            `${ENV.BASE_URL}docs/template.pptx`,
           ],
           namesSrc: ['template.docs', 'template.pptx', 'template.xlsx'],
           displaysSrc: [pdfContent, pdfContent, pdfContent],

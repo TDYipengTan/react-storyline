@@ -1,13 +1,18 @@
 import { Col, Row } from 'antd';
 import Renderer, { RendererProps } from 'components/Renderer';
 import Sidebar, { SidebarProps } from 'components/Sidebar';
-import { DEFAULT_EDGE_TYPES, DEFAULT_ITEMS_CONFIG, DEFAULT_NODE_TYPES } from 'configs';
+import {
+  DEFAULT_EDGE_TYPES,
+  DEFAULT_ITEMS_CONFIG,
+  DEFAULT_NODE_TYPES,
+  ENV,
+} from 'configs';
 import React, { FC } from 'react';
 import { assign, assignArray } from 'utils';
 
 import styles from './App.module.less';
 
-console.log(import.meta.env);
+console.log(ENV);
 
 const showSidebar = sessionStorage.getItem('show-side-bar');
 

@@ -1,3 +1,5 @@
+export const ENV = import.meta.env;
+
 export const MIN_ZOOM = 0.6;
 export const MAX_ZOOM = 0.8;
 

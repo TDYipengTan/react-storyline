@@ -1,7 +1,10 @@
 import React, { FC } from 'react';
 import { Handle, Position } from 'react-flow-renderer';
 
-import styles from './CenterHandle.module.less';
+const handleStyle = {
+  top: '50%',
+  transform: 'translate(-50%, -50%) scale(0)',
+};
 
 interface CenterHandleProps {
   isConnectable: boolean;
@@ -11,13 +14,13 @@ const CenterHandle: FC<CenterHandleProps> = ({ isConnectable }) => {
   return (
     <>
       <Handle
-        className={styles.handle}
+        style={handleStyle}
         isConnectable={isConnectable}
         type="source"
         position={'top' as Position}
       />
       <Handle
-        className={styles.handle}
+        style={handleStyle}
         isConnectable={isConnectable}
         type="target"
         position={'top' as Position}

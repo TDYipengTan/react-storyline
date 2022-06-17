@@ -4,7 +4,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 const userConfigFn: UserConfigFn = (env) => {
   return {
-    base: env.mode === 'dev' ? '' : 'https://tdyipengtan.github.io/react-storyline/',
+    base: env.mode === 'dev' ? '' : 'https://tdyipengtan.github.io/react-storyline',
     plugins: [reactRefresh(), tsconfigPaths()],
   };
 };
