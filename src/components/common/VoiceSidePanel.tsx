@@ -1,3 +1,4 @@
+import { ENV } from 'configs';
 import React, { FC, ReactNode } from 'react';
 import AudioPlayer from 'react-h5-audio-player';
 import { WithId } from 'types';
@@ -45,7 +46,7 @@ const VoiceSidePanel: FC<VoiceSidePanelProps> = ({ data, visible, onClose }) => 
     >
       <div className={styles.voiceTime}>2022-03-15 12:34-12:38 PM</div>
       <div className={styles.voiceContainer}>
-        <AudioPlayer src="/audios/love-you.mp3" />
+        <AudioPlayer src={`${ENV.BASE_URL}audios/love-you.mp3`} />
       </div>
       <div className={styles.voiceToText}>Voice to text</div>
       {data.map(({ id, ...rest }) => (
