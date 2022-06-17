@@ -1,4 +1,3 @@
-import ViewportProvider from '@cobalt/react-viewport-provider';
 import { Col, Row } from 'antd';
 import Renderer, { RendererProps } from 'components/Renderer';
 import Sidebar, { SidebarProps } from 'components/Sidebar';
@@ -16,22 +15,20 @@ interface AppProps extends SidebarProps, RendererProps {}
 
 const App: FC<AppProps> = ({ nodeTypes, edgeTypes, itemsConfig, ...rest }) => {
   return (
-    <ViewportProvider>
-      <Row className={`${styles.app} app`}>
-        {showSidebar && (
-          <Col flex="300px">
-            <Sidebar itemsConfig={assignArray(DEFAULT_ITEMS_CONFIG, itemsConfig)} />
-          </Col>
-        )}
-        <Col flex="auto">
-          <Renderer
-            {...rest}
-            nodeTypes={assign(DEFAULT_NODE_TYPES, nodeTypes)}
-            edgeTypes={assign(DEFAULT_EDGE_TYPES, edgeTypes)}
-          />
+    <Row className={`${styles.app} app`}>
+      {showSidebar && (
+        <Col flex="300px">
+          <Sidebar itemsConfig={assignArray(DEFAULT_ITEMS_CONFIG, itemsConfig)} />
         </Col>
-      </Row>
-    </ViewportProvider>
+      )}
+      <Col flex="auto">
+        <Renderer
+          {...rest}
+          nodeTypes={assign(DEFAULT_NODE_TYPES, nodeTypes)}
+          edgeTypes={assign(DEFAULT_EDGE_TYPES, edgeTypes)}
+        />
+      </Col>
+    </Row>
   );
 };
 
