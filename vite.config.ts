@@ -6,6 +6,16 @@ const userConfigFn: UserConfigFn = (env) => {
   return {
     base: env.mode === 'dev' ? '' : 'https://tdyipengtan.github.io/react-storyline/',
     plugins: [reactRefresh(), tsconfigPaths()],
+    css: {
+      preprocessorOptions: {
+        less: {
+          modifyVars: {
+            'primary-color': '#00a870', //全局样式
+          },
+          javascriptEnabled: true,
+        },
+      },
+    },
   };
 };
 

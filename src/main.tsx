@@ -1,8 +1,8 @@
-import 'antd/es/row/style/css';
-import 'antd/es/col/style/css';
-import 'antd/es/tooltip/style/css';
-import 'antd/es/message/style/css';
-import 'antd/es/switch/style/css';
+import 'antd/es/row/style';
+import 'antd/es/col/style';
+import 'antd/es/tooltip/style';
+import 'antd/es/message/style';
+import 'antd/es/switch/style';
 import 'react-h5-audio-player/lib/styles.css';
 import './main.less';
 
