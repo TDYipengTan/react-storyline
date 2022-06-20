@@ -10,7 +10,7 @@ const onDragStart = (event: React.DragEvent<HTMLLIElement>, allData: string) => 
 
 export interface SidebarProps {
   itemsConfig?: {
-    id: number;
+    id: string;
     nodeType: string;
     label: string;
     data: Record<string, any>;

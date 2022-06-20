@@ -1,7 +1,7 @@
 export const ENV = import.meta.env;
 
-export const MIN_ZOOM = 0.6;
-export const MAX_ZOOM = 0.8;
+export const MIN_ZOOM = 0.55;
+export const MAX_ZOOM = 0.9;
 
 export const DEFAULT_NODE_TYPES = {};
 

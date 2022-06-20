@@ -5,8 +5,9 @@ import EmailSidePanel from 'components/common/EmailSidePanel';
 import SMSSidePanel from 'components/common/SMSSidePanel';
 import VoiceSidePanel from 'components/common/VoiceSidePanel';
 import { MIN_ZOOM } from 'configs';
-import React, { FC, useEffect, useState } from 'react';
-import { NodeProps, useViewport } from 'react-flow-renderer';
+import useShowIconsByZoom from 'hooks/useShowIconsByZoom';
+import React, { FC, useState } from 'react';
+import { NodeProps } from 'react-flow-renderer';
 
 import CenterHandle from '../CenterHandle';
 import FilePopover from '../common/FilePopover';
@@ -32,8 +33,7 @@ const Channel: FC<ChannelProps> = ({
   const [showChatSidePanel, setShowChatSidePanel] = useState(false);
   const [showSMSSidePanel, setShowSMSSidePanel] = useState(false);
   const [showVoiceSidePanel, setShowVoiceSidePanel] = useState(false);
-  const [showIcons, setShowIcons] = useState(false);
-  const { zoom } = useViewport();
+  const showIcons = useShowIconsByZoom(MIN_ZOOM);
 
   const toggleChannelSidePanelVisible = (flag: boolean) => {
     switch (type) {
@@ -114,10 +114,6 @@ const Channel: FC<ChannelProps> = ({
       />
     </>
   );
-
-  useEffect(() => {
-    setShowIcons(zoom > MIN_ZOOM);
-  }, [zoom]);
 
   return (
     <>

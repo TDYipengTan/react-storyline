@@ -13,12 +13,13 @@ interface AvatarProps extends NodeProps {
     src: string;
     state: 'normal' | 'busy' | 'away';
     name: string;
+    email: string;
   };
 }
 
 const Avatar: FC<AvatarProps> = ({
   isConnectable,
-  data: { cc = false, src, state, name },
+  data: { cc = false, src, state, name, email },
 }) => {
   const showMe = useShowMeByCc(cc);
 
@@ -39,7 +40,16 @@ const Avatar: FC<AvatarProps> = ({
           { id: 4, label: 'Voice' },
         ]}
       >
-        <Tooltip placement="top" title={`Agent：${name}`}>
+        <Tooltip
+          placement="top"
+          title={
+            <>
+              Agent：{name}
+              <br />
+              Email: {email}
+            </>
+          }
+        >
           <div className={styles.container}>
             {avatarEl}
             {stateEl}

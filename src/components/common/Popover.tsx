@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { CSSProperties, FC, ReactNode, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useViewport } from 'react-flow-renderer';
 
 import styles from './Popover.module.less';
 
@@ -25,10 +26,11 @@ const Popover: FC<PopoverProps> = ({
   const [contentStyle2, setContentStyle2] = useState({});
   const childrenRef = useRef<HTMLDivElement | null>(null);
 
+  const { zoom } = useViewport();
+
   const onChildrenClick = () => {
     if (childrenRef.current) {
       const rect = childrenRef.current.getBoundingClientRect();
-      console.log(rect);
       const { width, height, top, left } = rect;
       setContainerStyle({
         position: 'fixed',
@@ -39,7 +41,8 @@ const Popover: FC<PopoverProps> = ({
         left,
       });
       setContentStyle2({
-        transform: `translate(-50%, ${height + 16}px)`,
+        transformOrigin: 'top',
+        transform: `translate(-50%, ${height + 16 * zoom}px) scale(${zoom})`,
       });
       setShowContent(true);
     }
