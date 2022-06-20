@@ -1,4 +1,5 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import classNames from 'classnames';
+import React, { CSSProperties, FC, useEffect, useRef, useState } from 'react';
 import { getRandomId } from 'utils';
 
 import styles from './ContextMenu.module.less';
@@ -21,16 +22,25 @@ const deleteById = (id: string) => {
   cache = cache.filter((item) => item.id !== id);
 };
 
-interface ContextMenuProps {
+export interface ContextMenuProps {
   dataWithAction: {
     id: string | number;
     label: string;
     // eslint-disable-next-line no-unused-vars
     callback?(id: string | number, label: string): void;
   }[];
+  position?: 'right' | 'top' | 'bottom';
+  agentName?: string;
+  style?: CSSProperties;
 }
 
-const ContextMenu: FC<ContextMenuProps> = ({ children, dataWithAction }) => {
+const ContextMenu: FC<ContextMenuProps> = ({
+  children,
+  dataWithAction,
+  position = 'right',
+  agentName = '',
+  style = {},
+}) => {
   const [showMenu, setShowMenu] = useState(false);
   const uidRef = useRef(getRandomId());
   const containerEl = useRef<HTMLElement | null | undefined>(null);
@@ -67,10 +77,12 @@ const ContextMenu: FC<ContextMenuProps> = ({ children, dataWithAction }) => {
       </div>
       {showMenu && (
         <ul
-          className={styles.container}
+          className={classNames(styles[position], styles.container)}
           ref={(el) => (containerEl.current = el?.parentElement || containerEl.current)}
           onClick={(event) => event.stopPropagation()}
+          style={style}
         >
+          {agentName && <li className={styles.nameItem}>{agentName}</li>}
           {dataWithAction.map(({ id, label, callback }) => (
             <li
               key={id}

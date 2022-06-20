@@ -1,12 +1,13 @@
 import { Switch } from 'antd';
 import classNames from 'classnames';
-import React, { FC, ReactNode, useState } from 'react';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { WithId } from 'types';
 
 import closeEye from '../../imgs/close-eye.png';
 import exampleEmail from '../../imgs/example-email.svg';
 import link from '../../imgs/link.png';
 import openEye from '../../imgs/open-eye.png';
+import signAboutTalkdesk from '../../imgs/sign-about-talkdesk.png';
 import Avatar from './Avatar';
 import styles from './EmailSidePanel.module.less';
 import Files from './Files';
@@ -14,10 +15,17 @@ import SidePanel from './SidePanel';
 
 export interface EmailItemProps {
   fromSrc: string;
+  fromName?: string;
   toSrc: string;
+  toName?: string;
   ccSrcs?: string[];
+  ccNames?: string[];
   content: ReactNode;
   date: string;
+  signInfo?: {
+    name: string;
+    phone: string;
+  };
   filesSrc?: string[];
 }
 
@@ -30,29 +38,51 @@ interface EmailItemStateProps {
 
 const EmailItem: FC<EmailItemProps & EmailItemStateProps> = ({
   fromSrc,
+  fromName,
   toSrc,
+  toName,
   ccSrcs,
+  ccNames,
   content,
   filesSrc,
   date,
+  signInfo,
   index,
   showMore,
   onChange,
 }) => {
+  const signInfoEl = signInfo && (
+    <div className={styles.signContainer}>
+      <div>—</div>
+      <div className={styles.signName}>{signInfo.name}</div>
+      <div className={styles.signPhone}>{signInfo.phone}</div>
+      <img
+        className={styles.signAboutTalkdesk}
+        src={signAboutTalkdesk}
+        alt="sign about talkdesk"
+      />
+    </div>
+  );
+
   return (
     <div className={styles.item}>
       <div className={styles.itemHeader}>
         <div className={styles.itemHeaderLeft}>
           <div className={styles.avatarContainer}>
-            <Avatar src={fromSrc} />
+            <Avatar agentName={fromName} src={fromSrc} />
             <span className={classNames(styles.to, styles.ml4)}>To</span>
-            <Avatar src={toSrc} className={styles.ml4} />
+            <Avatar agentName={toName} src={toSrc} className={styles.ml4} />
           </div>
           {ccSrcs?.length && (
             <div className={styles.avatarContainer}>
               <span className={styles.cc}>Cc</span>
-              {ccSrcs.map((ccSrc) => (
-                <Avatar key={ccSrc} src={ccSrc} className={styles.ml4} />
+              {ccSrcs.map((ccSrc, index) => (
+                <Avatar
+                  key={ccSrc}
+                  agentName={ccNames ? ccNames[index] : ''}
+                  src={ccSrc}
+                  className={styles.ml4}
+                />
               ))}
             </div>
           )}
@@ -69,8 +99,9 @@ const EmailItem: FC<EmailItemProps & EmailItemStateProps> = ({
         </div>
       </div>
       <div className={styles.content}>{content}</div>
-      <Files filesSrc={filesSrc} />
+      {showMore && <Files filesSrc={filesSrc} />}
       <div className={styles.itemDate}>{date}</div>
+      {showMore && signInfoEl}
     </div>
   );
 };
@@ -94,6 +125,10 @@ const EmailSidePanel: FC<EmailSidePanelProps> = ({ data, visible, onClose }) => 
     setShowMoreList(newShowMoreList);
   };
 
+  useEffect(() => {
+    setShowMoreList((pre) => pre.map(() => showAllMore));
+  }, [showAllMore]);
+
   return (
     <SidePanel
       visible={visible}
@@ -109,9 +144,14 @@ const EmailSidePanel: FC<EmailSidePanelProps> = ({ data, visible, onClose }) => 
     >
       <div className={styles.title}>Ask questions about my insurance and salary</div>
       <div className={styles.iconsContainer}>
-        <img src={link} alt="link" />
+        <img className={styles.link} src={link} alt="link" />
         <div className={styles.switchContainer}>
-          <Switch checked={showAllMore} onChange={() => setShowAllMore(!showAllMore)} />
+          <Switch
+            style={{ marginRight: 8 }}
+            checked={showAllMore}
+            onChange={() => setShowAllMore(!showAllMore)}
+          />
+          Original
         </div>
       </div>
       {data.map(({ id, ...rest }, index) => (

@@ -44,16 +44,25 @@ const EmailChannelMockData: (EmailItemProps & { id: string })[] = [
   {
     id: getRandomId(),
     fromSrc: user1,
+    fromName: 'Judy',
     toSrc: user2,
+    toName: 'Daniel',
     content: `Hello, I would like to check my insurance payment status and salary details for this month. I received a notice that the insurance the company paid me did not take effect. And there is also a problem with the details of this month's salary. Attached are screenshots and schedules.`,
     filesSrc: [exampleTable, exampleFile],
     date: '2022-03-14 09:34 AM',
   },
   {
     id: getRandomId(),
+    signInfo: {
+      name: 'Daniel Lee',
+      phone: '001 0234 5678',
+    },
     fromSrc: user2,
+    fromName: 'Daniel',
     toSrc: user1,
+    toName: 'Judy',
     ccSrcs: [ccUser2, ccUser1],
+    ccNames: ['Kara', 'Ancestress'],
     content: (
       <>
         Hello. Glad to serve you.
@@ -67,8 +76,11 @@ const EmailChannelMockData: (EmailItemProps & { id: string })[] = [
   {
     id: getRandomId(),
     fromSrc: user1,
+    fromName: 'Judy',
     toSrc: user2,
+    toName: 'Daniel',
     ccSrcs: [ccUser2, ccUser1],
+    ccNames: ['Kara', 'Ancestress'],
     content: 'My employee number is 002233, thank you!',
     date: '2022-03-14 10:45 AM',
   },

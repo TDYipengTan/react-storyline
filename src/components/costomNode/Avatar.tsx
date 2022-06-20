@@ -34,7 +34,7 @@ const Avatar: FC<AvatarProps> = ({
       <ContextMenu
         dataWithAction={[
           { id: 0, label: 'View profile' },
-          { id: 1, label: 'Add Jona lee' },
+          { id: 1, label: `Add ${name}` },
           { id: 2, label: 'Chat' },
           { id: 3, label: 'Email' },
           { id: 4, label: 'Voice' },
