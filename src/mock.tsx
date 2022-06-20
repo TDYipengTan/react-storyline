@@ -40,13 +40,17 @@ import user7 from './imgs/user7.png';
 import voice from './imgs/voice.svg';
 import word from './imgs/word.png';
 
+const user3Email = getEmail();
+const user4Email = getEmail();
+const user7Email = getEmail();
+
 const EmailChannelMockData: (EmailItemProps & { id: string })[] = [
   {
     id: getRandomId(),
     fromSrc: user1,
     fromName: 'Judy',
-    toSrc: user2,
-    toName: 'Daniel',
+    toSrc: [user2, user7],
+    toName: ['Daniel', 'Key'],
     content: `Hello, I would like to check my insurance payment status and salary details for this month. I received a notice that the insurance the company paid me did not take effect. And there is also a problem with the details of this month's salary. Attached are screenshots and schedules.`,
     filesSrc: [exampleTable, exampleFile],
     date: '2022-03-14 09:34 AM',
@@ -79,10 +83,19 @@ const EmailChannelMockData: (EmailItemProps & { id: string })[] = [
     fromName: 'Judy',
     toSrc: user2,
     toName: 'Daniel',
-    ccSrcs: [ccUser2, ccUser1],
-    ccNames: ['Kara', 'Ancestress'],
-    content: 'My employee number is 002233, thank you!',
+    content: `Okay, I'm busy now, I'll send it to you later`,
     date: '2022-03-14 10:45 AM',
+  },
+  {
+    id: getRandomId(),
+    fromSrc: user1,
+    fromName: 'Judy',
+    toSrc: user2,
+    toName: 'Daniel',
+    ccSrcs: [user3, user4],
+    ccNames: ['Maria', 'Teresa'],
+    content: 'Hi! My employee number is 002233, thank you!',
+    date: '2022-03-14 10:58 AM',
   },
 ];
 
@@ -369,7 +382,7 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
-      email: getEmail(),
+      email: user3Email,
       src: user3,
       state: 'away',
       name: 'Maria',
@@ -385,7 +398,7 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
-      email: getEmail(),
+      email: user4Email,
       src: user4,
       state: 'busy',
       name: 'Teresa',
@@ -482,7 +495,7 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
-      email: getEmail(),
+      email: user7Email,
       src: user7,
       state: 'normal',
       name: 'Key',
@@ -518,7 +531,35 @@ export const nodes = [
       state: 'normal',
       name: 'Kara',
     },
-    position: { x: 502, y: 211 },
+    position: { x: 458, y: 211 },
+  },
+  {
+    width: 48,
+    height: 48,
+    id: getRandomId(),
+    type: 'customAvatar',
+    data: {
+      email: user3Email,
+      cc: true,
+      src: user3,
+      state: 'away',
+      name: 'Maria',
+    },
+    position: { x: 550, y: 211 },
+  },
+  {
+    width: 48,
+    height: 48,
+    id: getRandomId(),
+    type: 'customAvatar',
+    data: {
+      email: user4Email,
+      cc: true,
+      src: user4,
+      state: 'busy',
+      name: 'Teresa',
+    },
+    position: { x: 578, y: 211 },
   },
   {
     width: 48,
@@ -533,6 +574,22 @@ export const nodes = [
       name: 'Marie',
     },
     position: { x: 68, y: 811 },
+  },
+  {
+    width: 48,
+    height: 48,
+    id: getRandomId(),
+    type: 'customAvatar',
+    data: {
+      email: user7Email,
+      src: user7,
+      state: 'normal',
+      name: 'Key',
+    },
+    position: {
+      x: 330,
+      y: 350,
+    },
   },
 ];
 
@@ -626,9 +683,25 @@ export const edges = [
   },
   {
     type: 'customCcStep',
-    id: `${nodes[6].id}-${nodes[14].id}`,
-    source: nodes[6].id,
+    id: `${nodes[1].id}-${nodes[14].id}`,
+    source: nodes[1].id,
     target: nodes[14].id,
+    sourceHandle: 'source-right',
+    targetHandle: 'target-left',
+  },
+  {
+    type: 'customCcStep',
+    id: `${nodes[1].id}-${nodes[15].id}`,
+    source: nodes[1].id,
+    target: nodes[15].id,
+    sourceHandle: 'source-right',
+    targetHandle: 'target-left',
+  },
+  {
+    type: 'customCcStep',
+    id: `${nodes[6].id}-${nodes[16].id}`,
+    source: nodes[6].id,
+    target: nodes[16].id,
     sourceHandle: 'source-right',
     targetHandle: 'target-left',
   },

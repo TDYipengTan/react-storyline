@@ -1,6 +1,6 @@
 import { Switch } from 'antd';
 import classNames from 'classnames';
-import React, { FC, ReactNode, useEffect, useState } from 'react';
+import React, { FC, ReactNode, useEffect, useRef, useState } from 'react';
 import { WithId } from 'types';
 
 import closeEye from '../../imgs/close-eye.png';
@@ -16,8 +16,8 @@ import SidePanel from './SidePanel';
 export interface EmailItemProps {
   fromSrc: string;
   fromName?: string;
-  toSrc: string;
-  toName?: string;
+  toSrc: string | string[];
+  toName?: string | string[];
   ccSrcs?: string[];
   ccNames?: string[];
   content: ReactNode;
@@ -36,7 +36,9 @@ interface EmailItemStateProps {
   onChange: (index: number, showMore: boolean) => void;
 }
 
-const EmailItem: FC<EmailItemProps & EmailItemStateProps> = ({
+const EmailItem: FC<
+  EmailItemProps & EmailItemStateProps & { ccToScroll?: string; srcToScroll?: string }
+> = ({
   fromSrc,
   fromName,
   toSrc,
@@ -49,8 +51,14 @@ const EmailItem: FC<EmailItemProps & EmailItemStateProps> = ({
   signInfo,
   index,
   showMore,
+  ccToScroll = '',
+  srcToScroll = '',
   onChange,
 }) => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  toSrc = Array.isArray(toSrc) ? toSrc : [toSrc];
+  toName = Array.isArray(toName) ? toName : [toName || ''];
   const signInfoEl = signInfo && (
     <div className={styles.signContainer}>
       <div>—</div>
@@ -64,14 +72,31 @@ const EmailItem: FC<EmailItemProps & EmailItemStateProps> = ({
     </div>
   );
 
+  useEffect(() => {
+    if (!containerRef.current) return;
+    if (ccSrcs?.includes(ccToScroll)) {
+      containerRef.current.scrollIntoView();
+    }
+    if (fromSrc === srcToScroll || toSrc === srcToScroll) {
+      containerRef.current.scrollIntoView();
+    }
+  }, []);
+
   return (
-    <div className={styles.item}>
+    <div ref={containerRef} className={styles.item}>
       <div className={styles.itemHeader}>
         <div className={styles.itemHeaderLeft}>
           <div className={styles.avatarContainer}>
             <Avatar agentName={fromName} src={fromSrc} />
             <span className={classNames(styles.to, styles.ml4)}>To</span>
-            <Avatar agentName={toName} src={toSrc} className={styles.ml4} />
+            {toSrc.map((toSrcItem, index) => (
+              <Avatar
+                key={toSrcItem}
+                agentName={(toName as string[])[index]}
+                src={toSrcItem}
+                className={styles.ml4}
+              />
+            ))}
           </div>
           {ccSrcs?.length && (
             <div className={styles.avatarContainer}>
@@ -107,12 +132,20 @@ const EmailItem: FC<EmailItemProps & EmailItemStateProps> = ({
 };
 
 interface EmailSidePanelProps {
+  ccToScroll?: string;
+  srcToScroll?: string;
   data: WithId<EmailItemProps>[];
   visible: boolean;
   onClose: () => void;
 }
 
-const EmailSidePanel: FC<EmailSidePanelProps> = ({ data, visible, onClose }) => {
+const EmailSidePanel: FC<EmailSidePanelProps> = ({
+  ccToScroll,
+  srcToScroll,
+  data,
+  visible,
+  onClose,
+}) => {
   const [showMoreList, setShowMoreList] = useState(
     Array.from(new Array(data.length), () => false),
   );
@@ -157,6 +190,8 @@ const EmailSidePanel: FC<EmailSidePanelProps> = ({ data, visible, onClose }) => 
       {data.map(({ id, ...rest }, index) => (
         <EmailItem
           key={id}
+          ccToScroll={ccToScroll}
+          srcToScroll={srcToScroll}
           index={index}
           showMore={showMoreList[index]}
           onChange={onChange}

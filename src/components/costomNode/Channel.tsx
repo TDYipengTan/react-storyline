@@ -5,8 +5,9 @@ import EmailSidePanel from 'components/common/EmailSidePanel';
 import SMSSidePanel from 'components/common/SMSSidePanel';
 import VoiceSidePanel from 'components/common/VoiceSidePanel';
 import { MIN_ZOOM } from 'configs';
+import { subscribe } from 'event';
 import useShowIconsByZoom from 'hooks/useShowIconsByZoom';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { NodeProps } from 'react-flow-renderer';
 
 import CenterHandle from '../CenterHandle';
@@ -33,6 +34,7 @@ const Channel: FC<ChannelProps> = ({
   const [showChatSidePanel, setShowChatSidePanel] = useState(false);
   const [showSMSSidePanel, setShowSMSSidePanel] = useState(false);
   const [showVoiceSidePanel, setShowVoiceSidePanel] = useState(false);
+  const ccToScrollRef = useRef<string>('');
   const showIcons = useShowIconsByZoom(MIN_ZOOM);
 
   const toggleChannelSidePanelVisible = (flag: boolean) => {
@@ -90,9 +92,20 @@ const Channel: FC<ChannelProps> = ({
     </ul>
   );
 
+  useEffect(() => {
+    if (type !== 'email' || !data) return;
+    const fn = (src: string) => {
+      ccToScrollRef.current = src;
+      showChannelSidePanelFn();
+    };
+    subscribe('cc-scroll', fn);
+    subscribe('normal-scroll', fn);
+  }, []);
+
   const panels = data && (
     <>
       <EmailSidePanel
+        ccToScroll={ccToScrollRef.current}
         data={data}
         visible={showEmailSidePanel}
         onClose={closeChannelSidePanelFn}

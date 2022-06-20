@@ -1,5 +1,6 @@
-import { Tooltip } from 'antd';
+import { Divider, Tooltip } from 'antd';
 import ContextMenu from 'components/common/ContextMenu';
+import { fire } from 'event';
 import useShowMeByCc from 'hooks/useShowMeByCc';
 import React, { FC } from 'react';
 import { NodeProps } from 'react-flow-renderer';
@@ -41,16 +42,30 @@ const Avatar: FC<AvatarProps> = ({
         ]}
       >
         <Tooltip
+          color="#fff"
           placement="top"
           title={
             <>
-              Agent：{name}
-              <br />
-              Email: {email}
+              <div className={styles.tooltipName}>{name}</div>
+              <div className={styles.tooltipOccupation}>Agent</div>
+              <Divider style={{ margin: '10px 0', backgroundColor: '#f1f1f1' }} />
+              <div className={styles.tooltipEmailTitle}>Email Address</div>
+              <a className={styles.tooltipEmail} href={`mailto:${email}`}>
+                {email}
+              </a>
             </>
           }
         >
-          <div className={styles.container}>
+          <div
+            className={styles.container}
+            onDoubleClick={() => {
+              if (cc) {
+                fire('cc-scroll', src);
+              } else {
+                fire('normal-scroll', src);
+              }
+            }}
+          >
             {avatarEl}
             {stateEl}
           </div>

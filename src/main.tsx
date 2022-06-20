@@ -1,5 +1,6 @@
 import 'antd/es/row/style';
 import 'antd/es/col/style';
+import 'antd/es/divider/style';
 import 'antd/es/tooltip/style';
 import 'antd/es/message/style';
 import 'antd/es/switch/style';
