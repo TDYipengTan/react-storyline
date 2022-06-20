@@ -1,3 +1,11 @@
+.title {
+  height: 33px;
+  line-height: 33px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
 .item {
   padding: 20px;
   border-radius: 8px;
@@ -12,9 +20,32 @@
   margin-bottom: 16px;
 }
 
+.itemHeaderLeft {
+  display: flex;
+  align-items: center;
+}
+
 .avatarContainer {
   display: flex;
   align-items: center;
+
+  &:not(:first-child) {
+    margin-left: 32px;
+  }
+}
+
+.itemHeaderRight {
+  height: 27px;
+  border-radius: 2px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #d8d8d8;
+  }
+}
+
+.itemHeaderRightIcon {
+  height: 100%;
 }
 
 .to,

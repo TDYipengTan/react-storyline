@@ -2,11 +2,11 @@ import { ChatItemProps } from 'components/common/ChatSidePanel';
 import { EmailItemProps } from 'components/common/EmailSidePanel';
 import { SMSItemProps } from 'components/common/SMSSidePanel';
 import { VoiceItemProps } from 'components/common/VoiceSidePanel';
-import CustomCcStraight from 'components/customEdge/CcStraight';
-import Straight from 'components/customEdge/Straight';
+import CustomCcStep from 'components/customEdge/CcStep';
+import Step from 'components/customEdge/Step';
 import { ENV } from 'configs';
 import React from 'react';
-import { getRandomId } from 'utils';
+import { getEmail, getRandomId } from 'utils';
 
 import CustomAvatar from './components/costomNode/Avatar';
 import CustomChannel from './components/costomNode/Channel';
@@ -260,6 +260,7 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
+      email: getEmail(),
       src: user1,
       state: 'normal',
       name: 'Judy',
@@ -268,11 +269,6 @@ export const nodes = [
       x: 300,
       y: 50,
     },
-    positionAbsolute: {
-      x: 300,
-      y: 50,
-    },
-    z: 0,
   },
   {
     width: 70,
@@ -287,16 +283,9 @@ export const nodes = [
       count: 3,
     },
     position: {
-      x: 383,
-      y: 129,
+      x: 289,
+      y: 200,
     },
-    selected: false,
-    dragging: false,
-    positionAbsolute: {
-      x: 383,
-      y: 129,
-    },
-    z: 0,
   },
   {
     width: 48,
@@ -304,21 +293,15 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
+      email: getEmail(),
       src: user2,
       state: 'busy',
       name: 'Daniel',
     },
     position: {
-      x: 301,
-      y: 245,
+      x: 300,
+      y: 350,
     },
-    selected: false,
-    dragging: false,
-    positionAbsolute: {
-      x: 301,
-      y: 245,
-    },
-    z: 0,
   },
   {
     width: 70,
@@ -343,11 +326,11 @@ export const nodes = [
           currentSelect: 1,
           listSrc: [word, pdf, excel],
           downloadsSrc: [
-            `${ENV.BASE_URL}docs/template.pptx`,
-            `${ENV.BASE_URL}docs/template.pptx`,
-            `${ENV.BASE_URL}docs/template.pptx`,
+            `${ENV.BASE_URL}docs/template.docx`,
+            `${ENV.BASE_URL}docs/template.pdf`,
+            `${ENV.BASE_URL}docs/template.xlsx`,
           ],
-          namesSrc: ['template.docs', 'template.pptx', 'template.xlsx'],
+          namesSrc: ['template.docx', 'template.pdf', 'template.xlsx'],
           displaysSrc: [pdfContent, pdfContent, pdfContent],
           style: { transform: 'translateY(6px)' },
         },
@@ -364,16 +347,9 @@ export const nodes = [
       count: 36,
     },
     position: {
-      x: 381,
-      y: 344,
+      x: 289,
+      y: 500,
     },
-    selected: false,
-    dragging: false,
-    positionAbsolute: {
-      x: 381,
-      y: 344,
-    },
-    z: 0,
   },
   {
     width: 48,
@@ -381,21 +357,15 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
+      email: getEmail(),
       src: user3,
       state: 'away',
       name: 'Maria',
     },
     position: {
-      x: 306,
-      y: 498,
+      x: 200,
+      y: 650,
     },
-    selected: false,
-    dragging: false,
-    positionAbsolute: {
-      x: 306,
-      y: 498,
-    },
-    z: 0,
   },
   {
     width: 48,
@@ -403,21 +373,15 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
+      email: getEmail(),
       src: user4,
       state: 'busy',
       name: 'Teresa',
     },
     position: {
-      x: 491,
-      y: 498,
+      x: 400,
+      y: 650,
     },
-    selected: false,
-    dragging: false,
-    positionAbsolute: {
-      x: 491,
-      y: 498,
-    },
-    z: 0,
   },
   {
     width: 70,
@@ -427,20 +391,13 @@ export const nodes = [
     data: {
       type: 'email',
       src: email,
-      icons: [file],
+      icons: [img],
       count: 2,
     },
     position: {
-      x: 214,
-      y: 619,
+      x: 189,
+      y: 800,
     },
-    selected: false,
-    dragging: false,
-    positionAbsolute: {
-      x: 214,
-      y: 619,
-    },
-    z: 0,
   },
   {
     width: 70,
@@ -455,16 +412,9 @@ export const nodes = [
       count: 5,
     },
     position: {
-      x: 573,
-      y: 619,
+      x: 389,
+      y: 800,
     },
-    selected: false,
-    dragging: false,
-    positionAbsolute: {
-      x: 573,
-      y: 619,
-    },
-    z: 0,
   },
   {
     width: 48,
@@ -472,21 +422,15 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
+      email: getEmail(),
       src: user5,
       state: 'normal',
       name: 'Kitty',
     },
     position: {
-      x: 147,
-      y: 760,
+      x: 200,
+      y: 950,
     },
-    selected: false,
-    dragging: false,
-    positionAbsolute: {
-      x: 147,
-      y: 761,
-    },
-    z: 0,
   },
   {
     width: 48,
@@ -494,21 +438,15 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
+      email: getEmail(),
       src: user6,
       state: 'busy',
       name: 'Joe',
     },
     position: {
-      x: 490,
-      y: 760,
+      x: 400,
+      y: 950,
     },
-    selected: false,
-    dragging: false,
-    positionAbsolute: {
-      x: 490,
-      y: 760,
-    },
-    z: 0,
   },
   {
     width: 70,
@@ -522,16 +460,9 @@ export const nodes = [
       icons: [download],
     },
     position: {
-      x: 572,
-      y: 876,
+      x: 389,
+      y: 1100,
     },
-    selected: false,
-    dragging: false,
-    positionAbsolute: {
-      x: 572,
-      y: 876,
-    },
-    z: 0,
   },
   {
     width: 48,
@@ -539,21 +470,15 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
+      email: getEmail(),
       src: user7,
       state: 'normal',
       name: 'Key',
     },
     position: {
-      x: 486,
-      y: 1026,
+      x: 400,
+      y: 1250,
     },
-    selected: true,
-    dragging: false,
-    positionAbsolute: {
-      x: 486,
-      y: 1026,
-    },
-    z: 1000,
   },
   {
     width: 48,
@@ -561,14 +486,13 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
+      email: getEmail(),
       cc: true,
       src: ccUser1,
       state: 'normal',
       name: 'Ancestress',
     },
-    position: { x: 550, y: 81 },
-    positionAbsolute: { x: 550, y: 81 },
-    z: 0,
+    position: { x: 430, y: 211 },
   },
   {
     width: 48,
@@ -576,14 +500,13 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
+      email: getEmail(),
       cc: true,
       src: ccUser2,
       state: 'normal',
       name: 'Kara',
     },
-    position: { x: 550, y: 226 },
-    positionAbsolute: { x: 550, y: 226 },
-    z: 0,
+    position: { x: 502, y: 211 },
   },
   {
     width: 48,
@@ -591,14 +514,13 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
+      email: getEmail(),
       cc: true,
       src: ccUser3,
       state: 'away',
       name: 'Marie',
     },
-    position: { x: 330, y: 740 },
-    positionAbsolute: { x: 330, y: 740 },
-    z: 0,
+    position: { x: 68, y: 811 },
   },
 ];
 
@@ -609,99 +531,105 @@ export const nodeTypes = {
 
 export const edges = [
   {
-    type: 'customStraight',
+    type: 'customStep',
     id: `${nodes[0].id}-${nodes[1].id}`,
     source: nodes[0].id,
     target: nodes[1].id,
   },
   {
-    type: 'customStraight',
+    type: 'customStep',
     id: `${nodes[1].id}-${nodes[2].id}`,
     source: nodes[1].id,
     target: nodes[2].id,
   },
   {
-    type: 'customStraight',
+    type: 'customStep',
     id: `${nodes[2].id}-${nodes[3].id}`,
     source: nodes[2].id,
     target: nodes[3].id,
   },
   {
-    type: 'customStraight',
+    type: 'customStep',
     id: `${nodes[3].id}-${nodes[4].id}`,
     source: nodes[3].id,
     target: nodes[4].id,
   },
   {
-    type: 'customStraight',
+    type: 'customStep',
     id: `${nodes[3].id}-${nodes[5].id}`,
     source: nodes[3].id,
     target: nodes[5].id,
   },
   {
-    type: 'customStraight',
+    type: 'customStep',
     id: `${nodes[4].id}-${nodes[6].id}`,
     source: nodes[4].id,
     target: nodes[6].id,
   },
   {
-    type: 'customStraight',
+    type: 'customStep',
     id: `${nodes[5].id}-${nodes[7].id}`,
     source: nodes[5].id,
     target: nodes[7].id,
   },
   {
-    type: 'customStraight',
+    type: 'customStep',
     id: `${nodes[6].id}-${nodes[8].id}`,
     source: nodes[6].id,
     target: nodes[8].id,
   },
   {
-    type: 'customStraight',
+    type: 'customStep',
     id: `${nodes[7].id}-${nodes[9].id}`,
     source: nodes[7].id,
     target: nodes[9].id,
   },
   {
-    type: 'customStraight',
+    type: 'customStep',
     id: `${nodes[9].id}-${nodes[10].id}`,
     source: nodes[9].id,
     target: nodes[10].id,
   },
   {
-    type: 'customStraight',
+    type: 'customStep',
     id: `${nodes[10].id}-${nodes[11].id}`,
     source: nodes[10].id,
     target: nodes[11].id,
   },
   {
-    type: 'customCcStraight',
+    type: 'customCcStep',
     id: `${nodes[1].id}-${nodes[12].id}`,
     source: nodes[1].id,
     target: nodes[12].id,
+    sourceHandle: 'source-right',
+    targetHandle: 'target-left',
   },
   {
-    type: 'customCcStraight',
+    type: 'customCcStep',
     id: `${nodes[1].id}-${nodes[13].id}`,
     source: nodes[1].id,
     target: nodes[13].id,
+    sourceHandle: 'source-right',
+    targetHandle: 'target-left',
   },
   {
-    type: 'customCcStraight',
+    type: 'customCcStep',
     id: `${nodes[6].id}-${nodes[14].id}`,
     source: nodes[6].id,
     target: nodes[14].id,
+    sourceHandle: 'source-right',
+    targetHandle: 'target-left',
   },
 ];
 
 export const edgeTypes = {
-  customStraight: Straight,
-  customCcStraight: CustomCcStraight,
+  customStep: Step,
+  customCcStep: CustomCcStep,
 };
 
 export const itemsConfig = [
   {
-    id: 0,
+    id: getRandomId(),
     nodeType: 'customAvatar',
     label: 'Custom Avatar',
     data: {
@@ -710,7 +638,7 @@ export const itemsConfig = [
     },
   },
   {
-    id: 1,
+    id: getRandomId(),
     nodeType: 'customChannel',
     label: 'Custom Channel',
     data: {

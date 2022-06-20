@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "prepare": "husky install",
-    "start": "vite --mode stg --force",
+    "start": "vite --mode dev",
     "build": "vite build --mode dev",
     "build:stg": "vite build --mode stg",
     "build:qa": "vite build --mode qa",

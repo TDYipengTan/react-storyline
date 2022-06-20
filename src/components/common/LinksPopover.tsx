@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import copy from 'copy-to-clipboard';
 import React, { FC } from 'react';
 
@@ -21,7 +22,7 @@ const LinksPopover: FC<LinksPopoverProps> = ({ iconSrc, links }) => {
               className={styles.copy}
               onClick={() => {
                 copy(link);
-                alert('copied!');
+                message.success('copied!');
               }}
             >
               Copy
