@@ -5,7 +5,7 @@ import EmailSidePanel from 'components/common/EmailSidePanel';
 import SMSSidePanel from 'components/common/SMSSidePanel';
 import VoiceSidePanel from 'components/common/VoiceSidePanel';
 import { MIN_ZOOM } from 'configs';
-import { subscribe } from 'event';
+import { getCcScrollId, subscribe } from 'event';
 import useShowIconsByZoom from 'hooks/useShowIconsByZoom';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { NodeProps } from 'react-flow-renderer';
@@ -15,17 +15,17 @@ import FilePopover from '../common/FilePopover';
 import LinksPopover from '../common/LinksPopover';
 import styles from './Channel.module.less';
 
-interface ChannelProps extends NodeProps {
-  data: {
+interface ChannelProps
+  extends NodeProps<{
     type: 'email' | 'chat' | 'sms' | 'voice';
     src: string;
     data: any[];
     icons?: string[];
     count?: number;
-  };
-}
+  }> {}
 
 const Channel: FC<ChannelProps> = ({
+  id,
   isConnectable,
   data: { type, src, data, icons = [], count = 0 },
   selected,
@@ -93,38 +93,44 @@ const Channel: FC<ChannelProps> = ({
   );
 
   useEffect(() => {
-    if (type !== 'email' || !data) return;
     const fn = (src: string) => {
       ccToScrollRef.current = src;
       showChannelSidePanelFn();
     };
-    subscribe('cc-scroll', fn);
-    subscribe('normal-scroll', fn);
+    subscribe(getCcScrollId(id), fn);
   }, []);
 
   const panels = data && (
     <>
-      <EmailSidePanel
-        ccToScroll={ccToScrollRef.current}
-        data={data}
-        visible={showEmailSidePanel}
-        onClose={closeChannelSidePanelFn}
-      />
-      <ChatSidePanel
-        data={data}
-        visible={showChatSidePanel}
-        onClose={closeChannelSidePanelFn}
-      />
-      <SMSSidePanel
-        data={data}
-        visible={showSMSSidePanel}
-        onClose={closeChannelSidePanelFn}
-      />
-      <VoiceSidePanel
-        data={data}
-        visible={showVoiceSidePanel}
-        onClose={closeChannelSidePanelFn}
-      />
+      {showEmailSidePanel && (
+        <EmailSidePanel
+          ccToScroll={ccToScrollRef.current}
+          data={data}
+          visible={showEmailSidePanel}
+          onClose={closeChannelSidePanelFn}
+        />
+      )}
+      {showChatSidePanel && (
+        <ChatSidePanel
+          data={data}
+          visible={showChatSidePanel}
+          onClose={closeChannelSidePanelFn}
+        />
+      )}
+      {showSMSSidePanel && (
+        <SMSSidePanel
+          data={data}
+          visible={showSMSSidePanel}
+          onClose={closeChannelSidePanelFn}
+        />
+      )}
+      {showVoiceSidePanel && (
+        <VoiceSidePanel
+          data={data}
+          visible={showVoiceSidePanel}
+          onClose={closeChannelSidePanelFn}
+        />
+      )}
     </>
   );
 
@@ -143,7 +149,10 @@ const Channel: FC<ChannelProps> = ({
             styles[type],
             selected && styles.selected,
           )}
-          onClick={() => showChannelSidePanelFn()}
+          onClick={() => {
+            ccToScrollRef.current = '';
+            showChannelSidePanelFn();
+          }}
         >
           {typeEl}
           {countEl}

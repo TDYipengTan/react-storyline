@@ -1,6 +1,6 @@
 import { Divider, Tooltip } from 'antd';
 import ContextMenu from 'components/common/ContextMenu';
-import { fire } from 'event';
+import { fire, getCcScrollId } from 'event';
 import useShowMeByCc from 'hooks/useShowMeByCc';
 import React, { FC } from 'react';
 import { NodeProps } from 'react-flow-renderer';
@@ -8,19 +8,19 @@ import { NodeProps } from 'react-flow-renderer';
 import CenterHandle from '../CenterHandle';
 import styles from './Avatar.module.less';
 
-interface AvatarProps extends NodeProps {
-  data: {
+interface AvatarProps
+  extends NodeProps<{
     cc?: boolean;
+    source?: string;
     src: string;
     state: 'normal' | 'busy' | 'away';
     name: string;
     email: string;
-  };
-}
+  }> {}
 
 const Avatar: FC<AvatarProps> = ({
   isConnectable,
-  data: { cc = false, src, state, name, email },
+  data: { cc = false, source = '', src, state, name, email },
 }) => {
   const showMe = useShowMeByCc(cc);
 
@@ -60,9 +60,7 @@ const Avatar: FC<AvatarProps> = ({
             className={styles.container}
             onDoubleClick={() => {
               if (cc) {
-                fire('cc-scroll', src);
-              } else {
-                fire('normal-scroll', src);
+                fire(getCcScrollId(source), src);
               }
             }}
           >

@@ -40,6 +40,8 @@ import user7 from './imgs/user7.png';
 import voice from './imgs/voice.svg';
 import word from './imgs/word.png';
 
+const node2Id = getRandomId();
+
 const user3Email = getEmail();
 const user4Email = getEmail();
 const user7Email = getEmail();
@@ -83,7 +85,7 @@ const EmailChannelMockData: (EmailItemProps & { id: string })[] = [
     fromName: 'Judy',
     toSrc: user2,
     toName: 'Daniel',
-    content: `Okay, I'm busy now, I'll send it to you later`,
+    content: `Okay, I'm busy now, I'll send it to you later.`,
     date: '2022-03-14 10:45 AM',
   },
   {
@@ -298,7 +300,7 @@ export const nodes = [
   {
     width: 70,
     height: 70,
-    id: getRandomId(),
+    id: node2Id,
     type: 'customChannel',
     data: {
       type: 'email',
@@ -511,6 +513,7 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
+      source: node2Id,
       email: getEmail(),
       cc: true,
       src: ccUser1,
@@ -525,6 +528,7 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
+      source: node2Id,
       email: getEmail(),
       cc: true,
       src: ccUser2,
@@ -539,6 +543,7 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
+      source: node2Id,
       email: user3Email,
       cc: true,
       src: user3,
@@ -553,6 +558,7 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
+      source: node2Id,
       email: user4Email,
       cc: true,
       src: user4,
