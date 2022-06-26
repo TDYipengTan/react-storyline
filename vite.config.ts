@@ -10,7 +10,7 @@ const userConfigFn: UserConfigFn = (env) => {
       preprocessorOptions: {
         less: {
           modifyVars: {
-            'primary-color': '#00a870', //全局样式
+            'primary-color': '#00a870', // global style
           },
           javascriptEnabled: true,
         },
