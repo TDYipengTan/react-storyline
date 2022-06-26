@@ -1,9 +1,9 @@
 import { Divider, Tooltip } from 'antd';
 import ContextMenu from 'components/common/ContextMenu';
-import { fire, getCcScrollId } from 'event';
 import useShowMeByCc from 'hooks/useShowMeByCc';
 import React, { FC } from 'react';
 import { NodeProps } from 'react-flow-renderer';
+import { fire, getCcScrollId } from 'utils';
 
 import CenterHandle from '../CenterHandle';
 import styles from './Avatar.module.less';

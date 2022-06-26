@@ -1,3 +1,4 @@
+import { Tooltip } from 'antd';
 import classNames from 'classnames';
 import ChatSidePanel from 'components/common/ChatSidePanel';
 import ContextMenu from 'components/common/ContextMenu';
@@ -5,10 +6,10 @@ import EmailSidePanel from 'components/common/EmailSidePanel';
 import SMSSidePanel from 'components/common/SMSSidePanel';
 import VoiceSidePanel from 'components/common/VoiceSidePanel';
 import { MIN_ZOOM } from 'configs';
-import { getCcScrollId, subscribe } from 'event';
 import useShowIconsByZoom from 'hooks/useShowIconsByZoom';
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, ReactNode, useEffect, useRef, useState } from 'react';
 import { NodeProps } from 'react-flow-renderer';
+import { getCcScrollId, subscribe } from 'utils';
 
 import CenterHandle from '../CenterHandle';
 import FilePopover from '../common/FilePopover';
@@ -17,6 +18,7 @@ import styles from './Channel.module.less';
 
 interface ChannelProps
   extends NodeProps<{
+    description: ReactNode;
     type: 'email' | 'chat' | 'sms' | 'voice';
     src: string;
     data: any[];
@@ -27,7 +29,7 @@ interface ChannelProps
 const Channel: FC<ChannelProps> = ({
   id,
   isConnectable,
-  data: { type, src, data, icons = [], count = 0 },
+  data: { description, type, src, data, icons = [], count = 0 },
   selected,
 }) => {
   const [showEmailSidePanel, setShowEmailSidePanel] = useState(false);
@@ -143,21 +145,43 @@ const Channel: FC<ChannelProps> = ({
           { id: 2, label: 'Archive' },
         ]}
       >
-        <div
-          className={classNames(
-            styles.container,
-            styles[type],
-            selected && styles.selected,
-          )}
-          onClick={() => {
-            ccToScrollRef.current = '';
-            showChannelSidePanelFn();
+        <Tooltip
+          color="#fff"
+          placement="right"
+          overlayInnerStyle={{
+            padding: 0,
+            boxShadow: '0px 6px 10px 0px #AEB3B8',
+            borderRadius: 4,
+            overflow: 'hidden',
           }}
+          title={
+            description && (
+              <div
+                className={styles.toolTipOverlay}
+                onClick={(e) => e.stopPropagation()}
+                onContextMenu={(e) => e.stopPropagation()}
+              >
+                {description}
+              </div>
+            )
+          }
         >
-          {typeEl}
-          {countEl}
-          {listEl}
-        </div>
+          <div
+            className={classNames(
+              styles.container,
+              styles[type],
+              selected && styles.selected,
+            )}
+            onClick={() => {
+              ccToScrollRef.current = '';
+              showChannelSidePanelFn();
+            }}
+          >
+            {typeEl}
+            {countEl}
+            {listEl}
+          </div>
+        </Tooltip>
       </ContextMenu>
       {panels}
       <CenterHandle isConnectable={isConnectable} />
