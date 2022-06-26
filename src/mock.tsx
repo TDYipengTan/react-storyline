@@ -10,6 +10,7 @@ import { getEmail, getRandomId } from 'utils';
 
 import CustomAvatar from './components/costomNode/Avatar';
 import CustomChannel from './components/costomNode/Channel';
+import CustomDescription from './components/costomNode/Description';
 import ccUser1 from './imgs/cc-user1.png';
 import ccUser2 from './imgs/cc-user2.png';
 import ccUser3 from './imgs/cc-user3.png';
@@ -40,15 +41,20 @@ import user7 from './imgs/user7.png';
 import voice from './imgs/voice.svg';
 import word from './imgs/word.png';
 
+const node2Id = getRandomId();
+
+const user1Email = getEmail();
+const user2Email = getEmail();
 const user3Email = getEmail();
 const user4Email = getEmail();
+const user5Email = getEmail();
 const user7Email = getEmail();
 
 const EmailChannelMockData: (EmailItemProps & { id: string })[] = [
   {
     id: getRandomId(),
     fromSrc: user1,
-    fromName: 'Judy',
+    fromName: 'Carly',
     toSrc: [user2, user7],
     toName: ['Daniel', 'Key'],
     content: `Hello, I would like to check my insurance payment status and salary details for this month. I received a notice that the insurance the company paid me did not take effect. And there is also a problem with the details of this month's salary. Attached are screenshots and schedules.`,
@@ -64,7 +70,7 @@ const EmailChannelMockData: (EmailItemProps & { id: string })[] = [
     fromSrc: user2,
     fromName: 'Daniel',
     toSrc: user1,
-    toName: 'Judy',
+    toName: 'Carly',
     ccSrcs: [ccUser2, ccUser1],
     ccNames: ['Kara', 'Ancestress'],
     content: (
@@ -80,16 +86,16 @@ const EmailChannelMockData: (EmailItemProps & { id: string })[] = [
   {
     id: getRandomId(),
     fromSrc: user1,
-    fromName: 'Judy',
+    fromName: 'Carly',
     toSrc: user2,
     toName: 'Daniel',
-    content: `Okay, I'm busy now, I'll send it to you later`,
+    content: `Okay, I'm busy now, I'll send it to you later.`,
     date: '2022-03-14 10:45 AM',
   },
   {
     id: getRandomId(),
     fromSrc: user1,
-    fromName: 'Judy',
+    fromName: 'Carly',
     toSrc: user2,
     toName: 'Daniel',
     ccSrcs: [user3, user4],
@@ -285,10 +291,10 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
-      email: getEmail(),
+      email: user1Email,
       src: user1,
       state: 'normal',
-      name: 'Judy',
+      name: 'Carly',
     },
     position: {
       x: 300,
@@ -298,9 +304,16 @@ export const nodes = [
   {
     width: 70,
     height: 70,
-    id: getRandomId(),
+    id: node2Id,
     type: 'customChannel',
     data: {
+      description: (
+        <>
+          <a href={`mailto:${user1Email}`}>Carly Yates</a> sends a request to{' '}
+          <a href={`mailto:${user2Email}`}>Daniel</a> to inquire about his salary and
+          insurance.
+        </>
+      ),
       type: 'email',
       src: email,
       data: EmailChannelMockData,
@@ -318,7 +331,7 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
-      email: getEmail(),
+      email: user2Email,
       src: user2,
       state: 'busy',
       name: 'Daniel',
@@ -447,10 +460,10 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
-      email: getEmail(),
+      email: user5Email,
       src: user5,
       state: 'normal',
-      name: 'Kitty',
+      name: 'Anna',
     },
     position: {
       x: 200,
@@ -511,6 +524,7 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
+      source: node2Id,
       email: getEmail(),
       cc: true,
       src: ccUser1,
@@ -525,6 +539,7 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
+      source: node2Id,
       email: getEmail(),
       cc: true,
       src: ccUser2,
@@ -539,6 +554,7 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
+      source: node2Id,
       email: user3Email,
       cc: true,
       src: user3,
@@ -553,6 +569,7 @@ export const nodes = [
     id: getRandomId(),
     type: 'customAvatar',
     data: {
+      source: node2Id,
       email: user4Email,
       cc: true,
       src: user4,
@@ -591,11 +608,39 @@ export const nodes = [
       y: 350,
     },
   },
+  {
+    width: 270,
+    id: getRandomId(),
+    type: 'customDescription',
+    data: {
+      title: 'Conversation',
+      subject: ' Querying Insurance and Salary Details',
+      regardingTheRequest: (
+        <>
+          <a href={`mailto:${user1Email}`}>Carly Yates</a> sends an email to{' '}
+          <a href={`mailto:${user2Email}`}>Daniel</a>, hoping to help him find the wrong
+          salary details and the insurance that has not been submitted successfully.
+        </>
+      ),
+      processingResults: (
+        <>
+          <a href={`mailto:${user5Email}`}>Anna</a> and{' '}
+          <a href={`mailto:${user7Email}`}>Key</a> send the query results to{' '}
+          <a href={`mailto:${user1Email}`}>Carly Yates</a> respectively.
+        </>
+      ),
+    },
+    position: {
+      x: 1000,
+      y: 50,
+    },
+  },
 ];
 
 export const nodeTypes = {
   customAvatar: CustomAvatar,
   customChannel: CustomChannel,
+  customDescription: CustomDescription,
 };
 
 export const edges = [

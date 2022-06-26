@@ -36,9 +36,7 @@ interface EmailItemStateProps {
   onChange: (index: number, showMore: boolean) => void;
 }
 
-const EmailItem: FC<
-  EmailItemProps & EmailItemStateProps & { ccToScroll?: string; srcToScroll?: string }
-> = ({
+const EmailItem: FC<EmailItemProps & EmailItemStateProps & { canScroll: boolean }> = ({
   fromSrc,
   fromName,
   toSrc,
@@ -51,8 +49,7 @@ const EmailItem: FC<
   signInfo,
   index,
   showMore,
-  ccToScroll = '',
-  srcToScroll = '',
+  canScroll,
   onChange,
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -74,16 +71,16 @@ const EmailItem: FC<
 
   useEffect(() => {
     if (!containerRef.current) return;
-    if (ccSrcs?.includes(ccToScroll)) {
-      containerRef.current.scrollIntoView();
-    }
-    if (fromSrc === srcToScroll || toSrc === srcToScroll) {
+    if (canScroll) {
       containerRef.current.scrollIntoView();
     }
   }, []);
 
   return (
-    <div ref={containerRef} className={styles.item}>
+    <div
+      ref={containerRef}
+      className={classNames(styles.item, canScroll && styles.itemHighlight)}
+    >
       <div className={styles.itemHeader}>
         <div className={styles.itemHeaderLeft}>
           <div className={styles.avatarContainer}>
@@ -140,8 +137,7 @@ interface EmailSidePanelProps {
 }
 
 const EmailSidePanel: FC<EmailSidePanelProps> = ({
-  ccToScroll,
-  srcToScroll,
+  ccToScroll = '',
   data,
   visible,
   onClose,
@@ -150,12 +146,26 @@ const EmailSidePanel: FC<EmailSidePanelProps> = ({
     Array.from(new Array(data.length), () => false),
   );
   const [showAllMore, setShowAllMore] = useState(false);
+  const firstFindCache = useRef(Array.from(new Array(data.length), () => false));
 
   const onChange = (index: number, showMore: boolean) => {
     const newShowMoreList = [...showMoreList];
     newShowMoreList[index] = showMore;
 
     setShowMoreList(newShowMoreList);
+  };
+
+  const getCanScroll = (ccSrcs: string[] = [], i: number = 0) => {
+    if (firstFindCache.current[i]) return true;
+    // only scroll to the first item element
+    if (ccSrcs.includes(ccToScroll)) {
+      firstFindCache.current[i] = true;
+
+      return true;
+    }
+    firstFindCache.current[i] = false;
+
+    return false;
   };
 
   useEffect(() => {
@@ -187,13 +197,13 @@ const EmailSidePanel: FC<EmailSidePanelProps> = ({
           Original
         </div>
       </div>
-      {data.map(({ id, ...rest }, index) => (
+      {data.map(({ id, ccSrcs, ...rest }, index) => (
         <EmailItem
           key={id}
-          ccToScroll={ccToScroll}
-          srcToScroll={srcToScroll}
+          canScroll={getCanScroll(ccSrcs, index)}
           index={index}
           showMore={showMoreList[index]}
+          ccSrcs={ccSrcs}
           onChange={onChange}
           {...rest}
         />
