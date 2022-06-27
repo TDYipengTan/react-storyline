@@ -36,6 +36,7 @@ const Channel: FC<ChannelProps> = ({
   const [showChatSidePanel, setShowChatSidePanel] = useState(false);
   const [showSMSSidePanel, setShowSMSSidePanel] = useState(false);
   const [showVoiceSidePanel, setShowVoiceSidePanel] = useState(false);
+  const [tooltipVisible, setTooltipVisible] = useState(false);
   const ccToScrollRef = useRef<string>('');
   const showIcons = useShowIconsByZoom(MIN_ZOOM);
 
@@ -144,8 +145,11 @@ const Channel: FC<ChannelProps> = ({
           { id: 1, label: 'Download' },
           { id: 2, label: 'Archive' },
         ]}
+        onContextMenu={() => setTooltipVisible(false)}
       >
         <Tooltip
+          visible={tooltipVisible}
+          onVisibleChange={(v) => setTooltipVisible(v)}
           color="#fff"
           placement="right"
           overlayInnerStyle={{

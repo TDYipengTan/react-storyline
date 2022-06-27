@@ -22,13 +22,16 @@ const Description: FC<DescriptionProps> = ({
   return (
     <div className={styles.container}>
       <div className={classNames(styles.header, !down && styles.expanded)}>
-        {title}
-        <img
-          className={classNames(styles.arrow, !down && 'arrow-up')}
-          src={arrowDown}
-          alt="arrow"
-          onClick={() => setDown(!down)}
-        />
+        <div className={styles.headerTop}>
+          {title}
+          <img
+            className={classNames(styles.arrow, !down && 'arrow-up')}
+            src={arrowDown}
+            alt="arrow"
+            onClick={() => setDown(!down)}
+          />
+        </div>
+        <div className={styles.headerTime}>2022-03-14 09:34 AM</div>
       </div>
       {!down && (
         <div className={classNames(styles.body, styles.bodyUp)}>
