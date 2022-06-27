@@ -10,7 +10,7 @@ import { getEmail, getRandomId } from 'utils';
 
 import CustomAvatar from './components/costomNode/Avatar';
 import CustomChannel from './components/costomNode/Channel';
-import CustomDescription from './components/costomNode/Description';
+// import CustomDescription from './components/costomNode/Description';
 import ccUser1 from './imgs/cc-user1.png';
 import ccUser2 from './imgs/cc-user2.png';
 import ccUser3 from './imgs/cc-user3.png';
@@ -608,39 +608,12 @@ export const nodes = [
       y: 350,
     },
   },
-  {
-    width: 270,
-    id: getRandomId(),
-    type: 'customDescription',
-    data: {
-      title: 'Conversation',
-      subject: ' Querying Insurance and Salary Details',
-      regardingTheRequest: (
-        <>
-          <a href={`mailto:${user1Email}`}>Carly Yates</a> sends an email to{' '}
-          <a href={`mailto:${user2Email}`}>Daniel</a>, hoping to help him find the wrong
-          salary details and the insurance that has not been submitted successfully.
-        </>
-      ),
-      processingResults: (
-        <>
-          <a href={`mailto:${user5Email}`}>Anna</a> and{' '}
-          <a href={`mailto:${user7Email}`}>Key</a> send the query results to{' '}
-          <a href={`mailto:${user1Email}`}>Carly Yates</a> respectively.
-        </>
-      ),
-    },
-    position: {
-      x: 1000,
-      y: 50,
-    },
-  },
 ];
 
 export const nodeTypes = {
   customAvatar: CustomAvatar,
   customChannel: CustomChannel,
-  customDescription: CustomDescription,
+  // customDescription: CustomDescription,
 };
 
 export const edges = [
@@ -779,3 +752,33 @@ export const itemsConfig = [
     },
   },
 ];
+
+export const DescriptionProps = {
+  width: 270,
+  id: getRandomId(),
+  type: 'customDescription',
+  isConnectable: false,
+  dragging: false,
+  selected: false,
+  xPos: 1000,
+  yPos: 50,
+  zIndex: 1000,
+  data: {
+    title: 'Conversation',
+    subject: ' Querying Insurance and Salary Details',
+    regardingTheRequest: (
+      <>
+        <a href={`mailto:${user1Email}`}>Carly Yates</a> sends an email to{' '}
+        <a href={`mailto:${user2Email}`}>Daniel</a>, hoping to help him find the wrong
+        salary details and the insurance that has not been submitted successfully.
+      </>
+    ),
+    processingResults: (
+      <>
+        <a href={`mailto:${user5Email}`}>Anna</a> and{' '}
+        <a href={`mailto:${user7Email}`}>Key</a> send the query results to{' '}
+        <a href={`mailto:${user1Email}`}>Carly Yates</a> respectively.
+      </>
+    ),
+  },
+};
