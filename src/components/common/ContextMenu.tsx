@@ -32,6 +32,7 @@ export interface ContextMenuProps {
   position?: 'right' | 'top' | 'bottom';
   agentName?: string;
   style?: CSSProperties;
+  onContextMenu?: () => void;
 }
 
 const ContextMenu: FC<ContextMenuProps> = ({
@@ -40,6 +41,7 @@ const ContextMenu: FC<ContextMenuProps> = ({
   position = 'right',
   agentName = '',
   style = {},
+  onContextMenu = () => {},
 }) => {
   const [showMenu, setShowMenu] = useState(false);
   const uidRef = useRef(getRandomId());
@@ -69,6 +71,7 @@ const ContextMenu: FC<ContextMenuProps> = ({
       <div
         onContextMenu={(event) => {
           event.preventDefault();
+          onContextMenu();
           fire(uidRef.current);
           setShowMenu(true);
         }}

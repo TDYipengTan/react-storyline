@@ -1,7 +1,7 @@
 import { Divider, Tooltip } from 'antd';
 import ContextMenu from 'components/common/ContextMenu';
 import useShowMeByCc from 'hooks/useShowMeByCc';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { NodeProps } from 'react-flow-renderer';
 import { fire, getCcScrollId } from 'utils';
 
@@ -22,6 +22,8 @@ const Avatar: FC<AvatarProps> = ({
   isConnectable,
   data: { cc = false, source = '', src, state, name, email },
 }) => {
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+
   const showMe = useShowMeByCc(cc);
 
   const avatarEl = <img className={styles.avatar} src={src} alt="avatar" />;
@@ -40,8 +42,11 @@ const Avatar: FC<AvatarProps> = ({
           { id: 3, label: 'Email' },
           { id: 4, label: 'Voice' },
         ]}
+        onContextMenu={() => setTooltipVisible(false)}
       >
         <Tooltip
+          visible={tooltipVisible}
+          onVisibleChange={(v) => setTooltipVisible(v)}
           color="#fff"
           placement="top"
           title={
