@@ -1,4 +1,5 @@
 import { Divider, Tooltip } from 'antd';
+import classNames from 'classnames';
 import ContextMenu from 'components/common/ContextMenu';
 import useShowMeByCc from 'hooks/useShowMeByCc';
 import React, { FC, useState } from 'react';
@@ -16,11 +17,25 @@ interface AvatarProps
     state: 'normal' | 'busy' | 'away';
     name: string;
     email: string;
+    occupation?: string;
   }> {}
+
+const stateToLabel = (state: AvatarProps['data']['state']) => {
+  switch (state) {
+    case 'normal':
+      return 'Active';
+    case 'busy':
+      return 'Busy';
+    case 'away':
+      return 'Away';
+    default:
+      return 'None';
+  }
+};
 
 const Avatar: FC<AvatarProps> = ({
   isConnectable,
-  data: { cc = false, source = '', src, state, name, email },
+  data: { cc = false, source = '', src, state, name, occupation, email },
 }) => {
   const [tooltipVisible, setTooltipVisible] = useState(false);
 
@@ -49,16 +64,25 @@ const Avatar: FC<AvatarProps> = ({
           onVisibleChange={(v) => setTooltipVisible(v)}
           color="#fff"
           placement="top"
+          overlayInnerStyle={{ padding: 0 }}
           title={
-            <>
+            <div
+              className={styles.tooltipContainer}
+              onClick={(e) => e.stopPropagation()}
+              onContextMenu={(e) => e.stopPropagation()}
+            >
               <div className={styles.tooltipName}>{name}</div>
-              <div className={styles.tooltipOccupation}>Agent</div>
-              <Divider style={{ margin: '10px 0', backgroundColor: '#f1f1f1' }} />
+              {occupation && <div className={styles.tooltipOccupation}>{occupation}</div>}
+              <div className={styles.tooltipStatus}>
+                <span className={classNames(styles[state], styles.dot)} />
+                {stateToLabel(state)}
+              </div>
+              <Divider style={{ margin: '4px 0', backgroundColor: '#f1f1f1' }} />
               <div className={styles.tooltipEmailTitle}>Email Address</div>
               <a className={styles.tooltipEmail} href={`mailto:${email}`}>
                 {email}
               </a>
-            </>
+            </div>
           }
         >
           <div
