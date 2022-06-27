@@ -1,9 +1,11 @@
 import classNames from 'classnames';
 import React, { CSSProperties, FC, ReactNode, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useViewport } from 'react-flow-renderer';
 
+// import { useViewport } from 'react-flow-renderer';
 import styles from './Popover.module.less';
+
+const zoom = 0.8;
 
 interface PopoverProps {
   className?: string;
@@ -26,7 +28,7 @@ const Popover: FC<PopoverProps> = ({
   const [contentStyle2, setContentStyle2] = useState({});
   const childrenRef = useRef<HTMLDivElement | null>(null);
 
-  const { zoom } = useViewport();
+  // const { zoom } = useViewport();
 
   const onChildrenClick = () => {
     if (childrenRef.current) {
