@@ -5,7 +5,6 @@ import { WithId } from 'types';
 
 import closeEye from '../../imgs/close-eye.png';
 import exampleEmail from '../../imgs/example-email.svg';
-import link from '../../imgs/link.png';
 import openEye from '../../imgs/open-eye.png';
 import signAboutTalkdesk from '../../imgs/sign-about-talkdesk.png';
 import Avatar from './Avatar';
@@ -187,7 +186,6 @@ const EmailSidePanel: FC<EmailSidePanelProps> = ({
     >
       <div className={styles.title}>Ask questions about my insurance and salary</div>
       <div className={styles.iconsContainer}>
-        <img className={styles.link} src={link} alt="link" />
         <div className={styles.switchContainer}>
           <Switch
             style={{ marginRight: 8 }}

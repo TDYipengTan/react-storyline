@@ -3,6 +3,7 @@ import React, { FC, ReactNode, useState } from 'react';
 import { NodeProps } from 'react-flow-renderer';
 
 import arrowDown from '../../imgs/arrow-down.png';
+import link from '../../imgs/link.png';
 import styles from './Description.module.less';
 
 interface DescriptionProps
@@ -40,6 +41,10 @@ const Description: FC<DescriptionProps> = ({
           </div>
           <div className={styles.item}>
             <span className={styles.strong}>Processing result: </span> {processingResults}{' '}
+          </div>
+          <div className={styles.item}>
+            <img className={styles.link} src={link} alt="link" />
+            <a className={styles.blockChain}>Blockchain Verification</a>
           </div>
         </div>
       )}
