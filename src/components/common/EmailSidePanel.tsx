@@ -5,7 +5,10 @@ import { WithId } from 'types';
 
 import closeEye from '../../imgs/close-eye.png';
 import exampleEmail from '../../imgs/example-email.svg';
+import forward from '../../imgs/forward.svg';
 import openEye from '../../imgs/open-eye.png';
+import reply from '../../imgs/reply.svg';
+import replyAll from '../../imgs/reply-all.svg';
 import signAboutTalkdesk from '../../imgs/sign-about-talkdesk.png';
 import Avatar from './Avatar';
 import styles from './EmailSidePanel.module.less';
@@ -108,15 +111,30 @@ const EmailItem: FC<EmailItemProps & EmailItemStateProps & { canScroll: boolean 
             </div>
           )}
         </div>
-        <div
-          className={styles.itemHeaderRight}
-          onClick={() => onChange(index, !showMore)}
-        >
-          <img
-            className={styles.itemHeaderRightIcon}
-            src={showMore ? openEye : closeEye}
-            alt="right icon"
-          />
+        <div className={styles.itemHeaderRight}>
+          <div className={styles.itemHeaderRightItem}>
+            <img className={styles.itemHeaderRightItemIcon} src={reply} alt="reply" />
+          </div>
+          <div className={styles.itemHeaderRightItem}>
+            <img
+              className={styles.itemHeaderRightItemIcon}
+              src={replyAll}
+              alt="reply-all"
+            />
+          </div>
+          <div className={styles.itemHeaderRightItem}>
+            <img className={styles.itemHeaderRightItemIcon} src={forward} alt="forward" />
+          </div>
+          <div
+            className={styles.itemHeaderRightItem}
+            onClick={() => onChange(index, !showMore)}
+          >
+            <img
+              className={styles.itemHeaderRightItemIcon}
+              src={showMore ? openEye : closeEye}
+              alt="eye"
+            />
+          </div>
         </div>
       </div>
       <div className={styles.content}>{content}</div>
