@@ -66,6 +66,15 @@
 }
 
 .itemHeaderRight {
+  display: flex;
+  align-items: center;
+}
+
+.itemHeaderRightItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 27px;
   height: 27px;
   border-radius: 2px;
   cursor: pointer;
@@ -73,9 +82,19 @@
   &:hover {
     background-color: #d8d8d8;
   }
+
+  &:not(:last-child) {
+    margin-right: 10px;
+
+    :global {
+      img {
+        height: 80%;
+      }
+    }
+  }
 }
 
-.itemHeaderRightIcon {
+.itemHeaderRightItemIcon {
   height: 100%;
 }
 
