@@ -57,11 +57,23 @@ const EmailChannelMockData: (EmailItemProps & { id: string })[] = [
     fromName: 'Carly',
     toSrc: [user2, user7],
     toName: ['Daniel', 'Key'],
-    content: `Hello, I would like to check my insurance payment status and salary details for this month. I received a notice that the insurance the company paid me did not take effect. And there is also a problem with the details of this month's salary. Attached are screenshots and schedules.`,
-    contentStyle: {
-      fontFamily: 'monospace',
-      fontStyle: 'italic',
-    },
+    content: `Hello, I would like to check my insurance payment status and salary details for this month. I received a notice that the insurance the company paid me did not take effect. And there is also a problem with the details of this month&apos;s salary. Attached are screenshots and schedules.`,
+    originContent: (
+      <div style={{ fontFamily: 'monospace' }}>
+        Hello, I would like to check my{' '}
+        <span style={{ fontWeight: 600, fontSize: 18 }}>insurance payment status</span>{' '}
+        and <span style={{ fontWeight: 600, fontSize: 18 }}>salary details</span> for this
+        month. I received a <span style={{ fontStyle: 'italic' }}>notice</span> that the
+        insurance the company paid me{' '}
+        <span style={{ fontStyle: 'italic' }}>did not take effect</span>. And there is
+        also a <span style={{ fontStyle: 'italic' }}>problem with the details</span> of
+        this month&apos;s salary.{' '}
+        <span style={{ fontWeight: 600, fontSize: 18 }}>
+          Attached are screenshots and schedules
+        </span>
+        .
+      </div>
+    ),
     quoteTitle: (
       <>
         On 2022-03-13 10:13 AM Teresa {'<'}
@@ -102,10 +114,6 @@ const EmailChannelMockData: (EmailItemProps & { id: string })[] = [
     toSrc: user2,
     toName: 'Daniel',
     content: `Okay, I'm busy now, I'll send it to you later.`,
-    contentStyle: {
-      fontFamily: 'monospace',
-      fontStyle: 'italic',
-    },
     date: '2022-03-14 10:45 AM',
   },
   {
@@ -117,10 +125,6 @@ const EmailChannelMockData: (EmailItemProps & { id: string })[] = [
     ccSrcs: [user3, user4],
     ccNames: ['Maria', 'Teresa'],
     content: 'Hi! My employee number is 002233, thank you!',
-    contentStyle: {
-      fontFamily: 'monospace',
-      fontStyle: 'italic',
-    },
     date: '2022-03-14 10:58 AM',
   },
 ];
