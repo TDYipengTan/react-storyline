@@ -1,6 +1,6 @@
 import { Switch } from 'antd';
 import classNames from 'classnames';
-import React, { CSSProperties, FC, ReactNode, useEffect, useRef, useState } from 'react';
+import React, { FC, ReactNode, useEffect, useRef, useState } from 'react';
 import { WithId } from 'types';
 
 import closeEye from '../../imgs/close-eye.png';
@@ -23,7 +23,7 @@ export interface EmailItemProps {
   ccSrcs?: string[];
   ccNames?: string[];
   content: ReactNode;
-  contentStyle?: CSSProperties;
+  originContent?: ReactNode;
   quoteTitle?: ReactNode;
   quoteContent?: ReactNode;
   date: string;
@@ -49,7 +49,7 @@ const EmailItem: FC<EmailItemProps & EmailItemStateProps & { canScroll: boolean 
   ccSrcs,
   ccNames,
   content,
-  contentStyle,
+  originContent = content,
   quoteTitle,
   quoteContent,
   filesSrc,
@@ -143,9 +143,7 @@ const EmailItem: FC<EmailItemProps & EmailItemStateProps & { canScroll: boolean 
           </div>
         </div>
       </div>
-      <div className={styles.content} style={showMore ? contentStyle : {}}>
-        {content}
-      </div>
+      <div className={styles.content}>{showMore ? originContent : content}</div>
       {showMore && <Files filesSrc={filesSrc} />}
       {showMore && quoteTitle && quoteContent && (
         <div className={styles.quoteContainer}>
