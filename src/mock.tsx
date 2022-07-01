@@ -68,7 +68,7 @@ const EmailChannelMockData: (EmailItemProps & { id: string })[] = [
         <span style={{ fontStyle: 'italic' }}>did not take effect</span>. And there is
         also a <span style={{ fontStyle: 'italic' }}>problem with the details</span> of
         this month&apos;s salary.{' '}
-        <span style={{ fontWeight: 600, fontSize: 18 }}>
+        <span style={{ fontWeight: 600, fontSize: 18, backgroundColor: 'yellow' }}>
           Attached are screenshots and schedules
         </span>
         .
