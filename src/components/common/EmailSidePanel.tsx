@@ -1,6 +1,6 @@
 import { Switch } from 'antd';
 import classNames from 'classnames';
-import React, { FC, ReactNode, useEffect, useRef, useState } from 'react';
+import React, { CSSProperties, FC, ReactNode, useEffect, useRef, useState } from 'react';
 import { WithId } from 'types';
 
 import closeEye from '../../imgs/close-eye.png';
@@ -23,6 +23,9 @@ export interface EmailItemProps {
   ccSrcs?: string[];
   ccNames?: string[];
   content: ReactNode;
+  contentStyle?: CSSProperties;
+  quoteTitle?: ReactNode;
+  quoteContent?: ReactNode;
   date: string;
   signInfo?: {
     name: string;
@@ -46,6 +49,9 @@ const EmailItem: FC<EmailItemProps & EmailItemStateProps & { canScroll: boolean 
   ccSrcs,
   ccNames,
   content,
+  contentStyle,
+  quoteTitle,
+  quoteContent,
   filesSrc,
   date,
   signInfo,
@@ -137,8 +143,16 @@ const EmailItem: FC<EmailItemProps & EmailItemStateProps & { canScroll: boolean 
           </div>
         </div>
       </div>
-      <div className={styles.content}>{content}</div>
+      <div className={styles.content} style={showMore ? contentStyle : {}}>
+        {content}
+      </div>
       {showMore && <Files filesSrc={filesSrc} />}
+      {showMore && quoteTitle && quoteContent && (
+        <div className={styles.quoteContainer}>
+          <div className={styles.quoteTitle}>{quoteTitle}</div>
+          <div className={styles.quoteContent}>{quoteContent}</div>
+        </div>
+      )}
       <div className={styles.itemDate}>{date}</div>
       {showMore && signInfoEl}
     </div>
