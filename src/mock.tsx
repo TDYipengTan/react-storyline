@@ -58,6 +58,18 @@ const EmailChannelMockData: (EmailItemProps & { id: string })[] = [
     toSrc: [user2, user7],
     toName: ['Daniel', 'Key'],
     content: `Hello, I would like to check my insurance payment status and salary details for this month. I received a notice that the insurance the company paid me did not take effect. And there is also a problem with the details of this month's salary. Attached are screenshots and schedules.`,
+    contentStyle: {
+      fontFamily: 'monospace',
+      fontStyle: 'italic',
+    },
+    quoteTitle: (
+      <>
+        On 2022-03-13 10:13 AM Teresa {'<'}
+        <a href={user5Email}>{user5Email}</a>
+        {'>'} wrote:
+      </>
+    ),
+    quoteContent: 'You can ask your question to the finance department.',
     filesSrc: [exampleTable, exampleFile],
     date: '2022-03-14 09:34 AM',
   },
@@ -90,6 +102,10 @@ const EmailChannelMockData: (EmailItemProps & { id: string })[] = [
     toSrc: user2,
     toName: 'Daniel',
     content: `Okay, I'm busy now, I'll send it to you later.`,
+    contentStyle: {
+      fontFamily: 'monospace',
+      fontStyle: 'italic',
+    },
     date: '2022-03-14 10:45 AM',
   },
   {
@@ -101,6 +117,10 @@ const EmailChannelMockData: (EmailItemProps & { id: string })[] = [
     ccSrcs: [user3, user4],
     ccNames: ['Maria', 'Teresa'],
     content: 'Hi! My employee number is 002233, thank you!',
+    contentStyle: {
+      fontFamily: 'monospace',
+      fontStyle: 'italic',
+    },
     date: '2022-03-14 10:58 AM',
   },
 ];
